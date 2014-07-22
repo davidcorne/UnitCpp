@@ -118,6 +118,12 @@ TEST(test, test_approx_equal)
 class TestException {};
 
 //=============================================================================
+void test_exception_function()
+{
+  throw TestException();
+}
+
+//=============================================================================
 void test_exception_function_1(int i)
 {
   if (i < 0) {
@@ -126,9 +132,9 @@ void test_exception_function_1(int i)
 }
 
 //=============================================================================
-void test_exception_function_2(int i, int j)
+void test_exception_function_2(std::string one, std::string two)
 {
-  if (i != j) {
+  if (one != two) {
     throw TestException();
   }
 }
@@ -150,6 +156,7 @@ TEST(test, test_throws)
     test_exception_function_1,
     -1
   );
+TEST_THROWS(test_exception_function, TestException);
   TEST_THROWS(test_exception_function_1, TestException, -10);
-  TEST_THROWS(test_exception_function_2, TestException, 1, 2);
+  TEST_THROWS(test_exception_function_2, TestException, "Hi", "There");
 }

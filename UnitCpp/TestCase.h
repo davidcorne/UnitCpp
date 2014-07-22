@@ -44,11 +44,12 @@
     TOLERANCE, \
     TEST_MESSAGE(#A " should be within " #TOLERANCE " of " #B ".")\
   )
+
 #define TEST_THROWS(FUNCTION, EXCEPTION, ...)   \
   test_throws<EXCEPTION>( \
-    #FUNCTION " should throw " #EXCEPTION " when given arguments " #__VA_ARGS__ ".", \
+    #FUNCTION " should throw " #EXCEPTION " when given arguments {" #__VA_ARGS__ "}.", \
     FUNCTION, \
-    __VA_ARGS__ \
+    ##__VA_ARGS__ \
   )
 
 #define TEST_TRUE(A) \
