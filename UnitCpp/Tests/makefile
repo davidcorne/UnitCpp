@@ -14,7 +14,7 @@ ifeq ($(COMPILER_TYPE), gcc)
 endif
 
 ifeq ($(COMPILER_TYPE), clang)
-  COMPILER = clang
+  COMPILER = clang++
   COMPILER_ARGS = -I../.. -Wall -Werror
   OUT_OBJECT_FILE = -o
   OUT_EXE_FILE = -o
