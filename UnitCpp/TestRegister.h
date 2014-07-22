@@ -19,6 +19,9 @@ public:
 
   void register_test(std::string class_name, TestCase* test);
   
+  int run_tests();
+  // Run all of the tests.
+  
   int run_tests(std::string class_name);
   // Returns an int so it can be used for return value of main().
   
@@ -32,24 +35,24 @@ private:
 #include <iostream>
 
 //=============================================================================
-TestRegister& TestRegister::test_register()
+inline TestRegister& TestRegister::test_register()
 {
   static TestRegister s_register;
   return s_register;
 }
 
 //=============================================================================
-TestRegister::TestRegister()
+inline TestRegister::TestRegister()
 {
 }
 
 //=============================================================================
-TestRegister::~TestRegister()
+inline TestRegister::~TestRegister()
 {
 }
 
 //=============================================================================
-void TestRegister::register_test(
+inline void TestRegister::register_test(
   std::string class_name,
   TestCase* test
 )
@@ -58,7 +61,7 @@ void TestRegister::register_test(
 }
 
 //=============================================================================
-int TestRegister::run_tests(std::string class_name)
+inline int TestRegister::run_tests(std::string class_name)
 {
   int return_code = 0;
   std::list<TestCase*> tests = m_test_table.at(class_name);
@@ -69,6 +72,16 @@ int TestRegister::run_tests(std::string class_name)
     if (!test->passed()) {
       return_code = 1;
     }
+  }
+  return return_code;
+}
+
+//=============================================================================
+inline int TestRegister::run_tests()
+{
+  int return_code = 0;
+  for (auto it = std::begin(m_test_table); it != std::end(m_test_table); ++it) {
+    return_code += run_tests(it->first);
   }
   return return_code;
 }

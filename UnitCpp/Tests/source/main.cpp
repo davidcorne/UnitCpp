@@ -1,13 +1,7 @@
 //=============================================================================
-#ifndef TestResult_H
-#define TestResult_H
-
-#include <string>
+#include <UnitCpp/Test.h>
 
 //=============================================================================
-struct TestResult {
-  bool pass;
-  std::string message;
-};
-
-#endif
+int main() {
+  return TestRegister::test_register().run_tests("test");
+}

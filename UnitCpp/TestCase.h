@@ -62,7 +62,7 @@ private:
 };
 
 //=============================================================================
-TestCase::TestCase(std::string group, std::string name)
+inline TestCase::TestCase(std::string group, std::string name)
   : m_group(group),
     m_name(name),
     m_passed(true)
@@ -71,7 +71,7 @@ TestCase::TestCase(std::string group, std::string name)
 }
 
 //=============================================================================
-TestCase::~TestCase()
+inline TestCase::~TestCase()
 {
 }
 
@@ -118,7 +118,7 @@ void TestCase::test_less_than(const U& first, const V& second)
 }
 
 //=============================================================================
-void TestCase::test_true(bool ok, std::string message)
+inline void TestCase::test_true(bool ok, std::string message)
 {
   m_results.push_back({ok, message});
   if (!ok) {
@@ -127,7 +127,7 @@ void TestCase::test_true(bool ok, std::string message)
 }
 
 //=============================================================================
-void TestCase::display_results(std::ostream& os)
+inline void TestCase::display_results(std::ostream& os)
 {
   os << "Test \"" << m_group << ":" << m_name << "\"\n\n";
   for (auto it = std::begin(m_results); it != std::end(m_results); ++it) {
@@ -146,7 +146,7 @@ void TestCase::display_results(std::ostream& os)
 }
 
 //=============================================================================
-bool TestCase::passed() const
+inline bool TestCase::passed() const
 {
   return m_passed;
 }
