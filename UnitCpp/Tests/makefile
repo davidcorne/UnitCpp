@@ -15,7 +15,7 @@ endif
 
 ifeq ($(COMPILER_TYPE), clang)
   COMPILER = clang
-  COMPILER_ARGS = -I../.. -std=c++0x -Wall -Werror
+  COMPILER_ARGS = -I../.. -Wall -Werror
   OUT_OBJECT_FILE = -o
   OUT_EXE_FILE = -o
   NO_LINK = -c
