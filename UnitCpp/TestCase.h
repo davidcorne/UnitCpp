@@ -154,6 +154,20 @@ void TestCase::test_less_than(const U& first, const V& second, std::string messa
 }
 
 //=============================================================================
+template <typename U, typename V>
+void TestCase::test_more_than(const U& first, const V& second)
+{
+  test_more_than(first, second, "Argument 1 should be more than argument 2");
+}
+
+//=============================================================================
+template <typename U, typename V>
+void TestCase::test_more_than(const U& first, const V& second, std::string message)
+{
+  test_true(first > second, message);
+}
+
+//=============================================================================
 inline void TestCase::test_true(bool ok)
 {
   test_true(ok, "Should be true.");
