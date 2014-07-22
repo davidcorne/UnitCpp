@@ -13,12 +13,24 @@ ifeq ($(COMPILER_TYPE), gcc)
   NO_LINK = -c
 endif
 
+ifeq ($(COMPILER_TYPE), clang)
+  CC = clang
+  CC_ARGS = -I../.. -std=c++0x -Wall -Werror
+  OUT_OBJECT_FILE = -o
+  OUT_EXE_FILE = -o
+  NO_LINK = -c
+endif
+
 ifeq ($(COMPILER_TYPE), vs)
   CC = cl
   CC_ARGS = /I..\\.. /W3 /WX /EHsc
   OUT_OBJECT_FILE = /Fo
   OUT_EXE_FILE = /Fe
   NO_LINK = /c
+endif
+
+ifndef $(CC)
+$(error Unknown compiler type $(CC))
 endif
 
 OBJECTS = $(shell find source -name "*.cpp" | sed -e 's:^source/:obj.$(COMPILER_TYPE)/:' -e 's:\.cpp$$:.obj:')
