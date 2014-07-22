@@ -1,4 +1,15 @@
 //=============================================================================
+//
+// This is the main class of UnitCpp. All of the tests are derived from
+// TestCase. In general you should use the preprocessor macros as they
+// give the best information. However you can get more flexiblity using the
+// functions directly.
+// e.g.
+//   TEST_EQUAL("C:/Users", "C:\Users")
+// will fail, but
+//   test_equal<path>("C:/Users", "C:\Users")
+// will pass.
+
 #ifndef TestCase_H
 #define TestCase_H
 
@@ -6,6 +17,31 @@
 
 #include <list>
 #include <iostream>
+
+// Helpful preprocessor macros.
+
+#define UNITCPP_INTERNALS_S(x) #x
+#define UNITCPP_INTERNALS_S_(x) UNITCPP_INTERNALS_S(x)
+#define TEST_MESSAGE(MESSAGE) \
+  "\"" MESSAGE "\" " __FILE__ ":" UNITCPP_INTERNALS_S_(__LINE__)
+
+#define TEST_EQUAL(A, B) \
+  test_equal(A, B, TEST_MESSAGE(#A " should equal " #B "."))
+
+#define TEST_NOT_EQUAL(A, B) \
+  test_not_equal(A, B, TEST_MESSAGE(#A " should not equal " #B "."))
+
+#define TEST_LESS_THAN(A, B) \
+  test_less_than(A, B, TEST_MESSAGE(#A " should be less than " #B "."))
+
+#define TEST_MORE_THAN(A, B) \
+  test_more_than(A, B, TEST_MESSAGE(#A " should be more than " #B "."))
+
+#define TEST_TRUE(A) \
+  test_true(A, TEST_MESSAGE(#A " should be true."))
+
+#define TEST_FALSE(A) \
+  test_false(A, TEST_MESSAGE(#A " should be false."))
 
 //=============================================================================
 class TestCase {
@@ -84,6 +120,13 @@ void TestCase::test_equal(const U& first, const V& second)
 
 //=============================================================================
 template <typename U, typename V>
+void TestCase::test_equal(const U& first, const V& second, std::string message)
+{
+  test_true(first == second, message);
+}
+
+//=============================================================================
+template <typename U, typename V>
 void TestCase::test_not_equal(const U& first, const V& second)
 {
   test_not_equal(first, second, "These arguments should not be equal");
@@ -98,9 +141,9 @@ void TestCase::test_not_equal(const U& first, const V& second, std::string messa
 
 //=============================================================================
 template <typename U, typename V>
-void TestCase::test_equal(const U& first, const V& second, std::string message)
+void TestCase::test_less_than(const U& first, const V& second)
 {
-  test_true(first == second, message);
+  test_less_than(first, second, "Argument 1 should be less than argument 2");
 }
 
 //=============================================================================
@@ -111,10 +154,9 @@ void TestCase::test_less_than(const U& first, const V& second, std::string messa
 }
 
 //=============================================================================
-template <typename U, typename V>
-void TestCase::test_less_than(const U& first, const V& second)
+inline void TestCase::test_true(bool ok)
 {
-  test_less_than(first, second, "Argument 1 should be less than argument 2");
+  test_true(ok, "Should be true.");
 }
 
 //=============================================================================
@@ -124,6 +166,18 @@ inline void TestCase::test_true(bool ok, std::string message)
   if (!ok) {
     m_passed = false;
   }
+}
+
+//=============================================================================
+inline void TestCase::test_false(bool not_ok)
+{
+  test_false(not_ok, "Should be false.");
+}
+
+//=============================================================================
+inline void TestCase::test_false(bool not_ok, std::string message)
+{
+  test_true(!not_ok, message);
 }
 
 //=============================================================================

@@ -17,6 +17,7 @@
 //        test_true(is_prime(3));
 //        test_false(is_prime(4));
 //      }
+//     To see what functions to use inside tests, check out TestCase.h
 //
 //  2) Running all tests;
 //       TestRegister::test_register().run_tests(group/class_name);
