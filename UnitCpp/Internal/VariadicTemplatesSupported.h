@@ -28,6 +28,10 @@
 
 #endif // ifdef __GNUC__
 
+#ifdef __clang__
+#define UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED __has_feature(cxx_variadic_templates)
+#endif // ifdef __clang__
+
 #ifndef UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
 #define UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED 0
 #endif // ifndef UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
