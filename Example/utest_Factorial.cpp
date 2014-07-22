@@ -51,8 +51,7 @@ void test_factorial_test_two::run()
 //=============================================================================
 int main()
 {
-  TestRegister::test_register().run_tests("factorial");
-  return 0;
+  return TestRegister::test_register().run_tests("factorial");
 }
 
 #endif

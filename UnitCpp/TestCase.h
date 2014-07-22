@@ -50,6 +50,8 @@ public:
   void test_false(bool not_ok, std::string message);
 
   void display_results(std::ostream& os);
+
+  bool passed() const;
   
 private:
 
@@ -143,4 +145,9 @@ void TestCase::display_results(std::ostream& os)
   }
 }
 
+//=============================================================================
+bool TestCase::passed() const
+{
+  return m_passed;
+}
 #endif

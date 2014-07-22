@@ -19,7 +19,8 @@ public:
 
   void register_test(std::string class_name, TestCase* test);
   
-  void run_tests(std::string class_name);
+  int run_tests(std::string class_name);
+  // Returns an int so it can be used for return value of main().
   
 private:
   TestRegister();
@@ -57,14 +58,19 @@ void TestRegister::register_test(
 }
 
 //=============================================================================
-void TestRegister::run_tests(std::string class_name)
+int TestRegister::run_tests(std::string class_name)
 {
+  int return_code = 0;
   std::list<TestCase*> tests = m_test_table.at(class_name);
   for (auto it = std::begin(tests); it != std::end(tests); ++it) {
     TestCase* test = *it;
     test->run();
-    test->display_results(std::cout);    
+    test->display_results(std::cout);
+    if (!test->passed()) {
+      return_code = 1;
+    }
   }
+  return return_code;
 }
 
 #endif
