@@ -156,7 +156,7 @@ TEST(test, test_throws)
     test_exception_function_1,
     -1
   );
-TEST_THROWS(test_exception_function, TestException);
+  TEST_THROWS(test_exception_function, TestException);
   TEST_THROWS(test_exception_function_1, TestException, -10);
   TEST_THROWS(test_exception_function_2, TestException, "Hi", "There");
 }
