@@ -1,5 +1,6 @@
 //=============================================================================
 #include <UnitCpp/Test.h>
+#include <UnitCpp/Internal/VariadicTemplatesSupported.h>
 
 //=============================================================================
 TEST(test, test_equal)
@@ -18,9 +19,7 @@ TEST(test, test_equal)
 
   // test some strings, in several ways
   TEST_EQUAL(std::string("one"), "one");
-  TEST_EQUAL("TWO", "TWO");
   // Use the template methods.
-  test_equal<const char*>("ThReE", "ThReE");
   test_equal<std::string>("four", "four");
 }
 
@@ -114,6 +113,7 @@ TEST(test, test_approx_equal)
   TEST_APPROX_EQUAL(3.0 / 2.0, 1.5, tol);
 }
 
+#if UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
 //=============================================================================
 class TestException {};
 
@@ -139,7 +139,6 @@ void test_exception_function_2(std::string one, std::string two)
   }
 }
 
-
 //=============================================================================
 TEST(test, test_throws)
 {
@@ -160,3 +159,5 @@ TEST(test, test_throws)
   TEST_THROWS(test_exception_function_1, TestException, -10);
   TEST_THROWS(test_exception_function_2, TestException, "Hi", "There");
 }
+
+#endif // UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED

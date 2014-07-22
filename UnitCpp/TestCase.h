@@ -22,6 +22,7 @@
 
 #define UNITCPP_INTERNALS_S(x) #x
 #define UNITCPP_INTERNALS_S_(x) UNITCPP_INTERNALS_S(x)
+
 #define TEST_MESSAGE(MESSAGE) \
   "\"" MESSAGE "\" " __FILE__ ":" UNITCPP_INTERNALS_S_(__LINE__)
 
@@ -57,6 +58,8 @@
 
 #define TEST_FALSE(A) \
   test_false(A, TEST_MESSAGE(#A " should be false."))
+
+#include <UnitCpp/Internal/VariadicTemplatesSupported.h>
 
 //=============================================================================
 class TestCase {
@@ -98,8 +101,10 @@ public:
   template <typename U, typename V, typename W>
   void test_approx_equal(const U& first, const V& second, const W& tolerance, std::string message);
 
+#if UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
   template <typename Texception, typename TFunction, typename... Args >
   void test_throws(std::string message, TFunction func, Args... arguments);
+#endif // UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
   
   void test_true(bool ok);
 
@@ -222,6 +227,7 @@ void TestCase::test_approx_equal(
   );
 }
 
+#if UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
 //=============================================================================
 template <typename Texception, typename TFunction, typename... Args >
 void TestCase::test_throws(
@@ -238,7 +244,8 @@ void TestCase::test_throws(
   }
   test_true(exception_thrown, message);
 }
-  
+#endif // UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
+
 //=============================================================================
 inline void TestCase::test_true(bool ok)
 {
@@ -248,7 +255,8 @@ inline void TestCase::test_true(bool ok)
 //=============================================================================
 inline void TestCase::test_true(bool ok, std::string message)
 {
-  m_results.push_back({ok, message});
+  TestResult result = {ok, message};
+  m_results.push_back(result);
   if (!ok) {
     m_passed = false;
   }
