@@ -113,3 +113,43 @@ TEST(test, test_approx_equal)
   double tol = 0.00000001;
   TEST_APPROX_EQUAL(3.0 / 2.0, 1.5, tol);
 }
+
+//=============================================================================
+class TestException {};
+
+//=============================================================================
+void test_exception_function_1(int i)
+{
+  if (i < 0) {
+    throw TestException();
+  }
+}
+
+//=============================================================================
+void test_exception_function_2(int i, int j)
+{
+  if (i != j) {
+    throw TestException();
+  }
+}
+
+
+//=============================================================================
+TEST(test, test_throws)
+{
+  bool exception = false;
+  try {
+    test_exception_function_1(-1);
+  } catch (TestException e) {
+    exception = true;
+  }
+  TEST_TRUE(exception);
+
+  test_throws<TestException>(
+    "Should throw.",
+    test_exception_function_1,
+    -1
+  );
+  TEST_THROWS(test_exception_function_1, TestException, -10);
+  TEST_THROWS(test_exception_function_2, TestException, 1, 2);
+}

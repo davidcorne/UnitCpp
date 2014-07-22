@@ -44,6 +44,13 @@
     TOLERANCE, \
     TEST_MESSAGE(#A " should be within " #TOLERANCE " of " #B ".")\
   )
+#define TEST_THROWS(FUNCTION, EXCEPTION, ...)   \
+  test_throws<EXCEPTION>( \
+    #FUNCTION " should throw " #EXCEPTION " when given arguments " #__VA_ARGS__ ".", \
+    FUNCTION, \
+    __VA_ARGS__ \
+  )
+
 #define TEST_TRUE(A) \
   test_true(A, TEST_MESSAGE(#A " should be true."))
 
@@ -90,6 +97,9 @@ public:
   template <typename U, typename V, typename W>
   void test_approx_equal(const U& first, const V& second, const W& tolerance, std::string message);
 
+  template <typename Texception, typename TFunction, typename... Args >
+  void test_throws(std::string message, TFunction func, Args... arguments);
+  
   void test_true(bool ok);
 
   void test_true(bool ok, std::string message);
@@ -211,6 +221,23 @@ void TestCase::test_approx_equal(
   );
 }
 
+//=============================================================================
+template <typename Texception, typename TFunction, typename... Args >
+void TestCase::test_throws(
+  std::string message,
+  TFunction func,
+  Args... arguments
+)
+{
+  bool exception_thrown = false;
+  try {
+    func(arguments...);
+  } catch (Texception e) {
+    exception_thrown = true;
+  }
+  test_true(exception_thrown, message);
+}
+  
 //=============================================================================
 inline void TestCase::test_true(bool ok)
 {
