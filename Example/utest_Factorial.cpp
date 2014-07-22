@@ -44,7 +44,7 @@ void test_factorial_test_two::run()
   test_equal(factorial(1), 1);
   test_not_equal(factorial(1), 0);
   test_less_than(factorial(5), 356);
-  test_equal(5, 2, "5 should equal 5");
+  test_equal(5, 5, "5 should equal 5");
 }
 
 
