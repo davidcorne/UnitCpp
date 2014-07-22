@@ -37,6 +37,13 @@
 #define TEST_MORE_THAN(A, B) \
   test_more_than(A, B, TEST_MESSAGE(#A " should be more than " #B "."))
 
+#define TEST_APPROX_EQUAL(A, B, TOLERANCE) \
+  test_approx_equal(\
+    A, \
+    B, \
+    TOLERANCE, \
+    TEST_MESSAGE(#A " should be within " #TOLERANCE " of " #B ".")\
+  )
 #define TEST_TRUE(A) \
   test_true(A, TEST_MESSAGE(#A " should be true."))
 
@@ -76,6 +83,12 @@ public:
 
   template <typename U, typename V>
   void test_more_than(const U& first, const V& second, std::string message);
+
+  template <typename U, typename V, typename W>
+  void test_approx_equal(const U& first, const V& second, const W& tolerance);
+
+  template <typename U, typename V, typename W>
+  void test_approx_equal(const U& first, const V& second, const W& tolerance, std::string message);
 
   void test_true(bool ok);
 
@@ -165,6 +178,37 @@ template <typename U, typename V>
 void TestCase::test_more_than(const U& first, const V& second, std::string message)
 {
   test_true(first > second, message);
+}
+
+//=============================================================================
+template <typename U, typename V, typename W>
+void TestCase::test_approx_equal(
+  const U& first,
+  const V& second,
+  const W& tolerance
+)
+{
+  test_approx_equal(
+    first,
+    second,
+    tolerance,
+    "Argument 1 should be within tolerance of argument 2"
+  );
+}
+
+//=============================================================================
+template <typename U, typename V, typename W>
+void TestCase::test_approx_equal(
+  const U& first,
+  const V& second,
+  const W& tolerance,
+  std::string message
+)
+{
+  test_true(
+    first - tolerance < second && second < first + tolerance,
+    message
+  );
 }
 
 //=============================================================================

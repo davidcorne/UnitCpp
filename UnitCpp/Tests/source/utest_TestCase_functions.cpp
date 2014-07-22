@@ -78,3 +78,38 @@ TEST(test, test_more_than)
   test_more_than<double>(7, 4);
   test_more_than<double>(12, -12, "12 should be more than -12.");
 }
+
+//=============================================================================
+TEST(test, test_true)
+{
+  TEST_TRUE(4 < 7);
+  TEST_TRUE(4 == 4);
+  TEST_TRUE(8 / 2 == 4);
+  TEST_TRUE(true);
+  TEST_TRUE(1);
+  std::string str;
+  TEST_TRUE(str.empty());
+  TEST_TRUE(!false);
+  TEST_TRUE(!0);
+}
+
+//=============================================================================
+TEST(test, test_false)
+{
+  TEST_FALSE(4 > 7);
+  TEST_FALSE(4 != 4);
+  TEST_FALSE(8 / 2 == 4.1);
+  TEST_FALSE(false);
+  TEST_FALSE(!1);
+  std::string str;
+  TEST_FALSE(!str.empty());
+  TEST_FALSE(!true);
+  TEST_FALSE(0);
+}
+
+//=============================================================================
+TEST(test, test_approx_equal)
+{
+  double tol = 0.00000001;
+  TEST_APPROX_EQUAL(3.0 / 2.0, 1.5, tol);
+}
