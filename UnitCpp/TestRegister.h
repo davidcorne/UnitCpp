@@ -28,7 +28,6 @@ private:
 };
 
 #include <UnitCpp/TestCase.h>
-#include <assert.h>
 #include <iostream>
 
 //=============================================================================
@@ -63,7 +62,6 @@ void TestRegister::run_tests(std::string class_name)
   std::list<TestCase*> tests = m_test_table.at(class_name);
   for (auto it = std::begin(tests); it != std::end(tests); ++it) {
     TestCase* test = *it;
-    assert(test != nullptr);
     test->run();
     test->display_results(std::cout);    
   }

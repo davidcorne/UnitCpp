@@ -38,6 +38,9 @@ public:
   template <typename U, typename V>
   void test_more_than(const U& first, const V& second);
 
+  template <typename U, typename V>
+  void test_more_than(const U& first, const V& second, std::string message);
+
   void test_true(bool ok);
 
   void test_true(bool ok, std::string message);
@@ -50,13 +53,17 @@ public:
   
 private:
 
+  std::string m_group;
+  std::string m_name;
   bool m_passed;
   std::list<TestResult> m_results;
 };
 
 //=============================================================================
 TestCase::TestCase(std::string group, std::string name)
-  : m_passed(true)
+  : m_group(group),
+    m_name(name),
+    m_passed(true)
 {
   TestRegister::test_register().register_test(group, this);
 }
@@ -120,6 +127,7 @@ void TestCase::test_true(bool ok, std::string message)
 //=============================================================================
 void TestCase::display_results(std::ostream& os)
 {
+  os << "Test \"" << m_group << ":" << m_name << "\"\n\n";
   for (auto it = std::begin(m_results); it != std::end(m_results); ++it) {
     TestResult result = *it;
     if (result.pass) {
@@ -129,8 +137,9 @@ void TestCase::display_results(std::ostream& os)
     }
     os << result.message << "\n";
   }
+  os << "\n";
   if (!m_passed) {
-    os << "\nTest failed.\n";
+    os << m_group << ":" << m_name << " failed.\n";
   }
 }
 
