@@ -5,6 +5,7 @@ COMPILER_TYPE = gcc
 
 TARGET = exe.$(COMPILER_TYPE)/utest.exe
 
+#==============================================================================
 ifeq ($(COMPILER_TYPE), gcc)
   COMPILER = g++
   COMPILER_ARGS = -I../.. -std=c++0x -Wall -Werror
@@ -13,6 +14,7 @@ ifeq ($(COMPILER_TYPE), gcc)
   NO_LINK = -c
 endif
 
+#==============================================================================
 ifeq ($(COMPILER_TYPE), clang)
   COMPILER = clang++
   COMPILER_ARGS = -I../.. -Wall -Werror
@@ -21,6 +23,7 @@ ifeq ($(COMPILER_TYPE), clang)
   NO_LINK = -c
 endif
 
+#==============================================================================
 ifeq ($(COMPILER_TYPE), vs)
   COMPILER = cl
   COMPILER_ARGS = /I..\\.. /W3 /WX /EHsc
