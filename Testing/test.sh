@@ -7,7 +7,7 @@ set -e
 if $(command -v clang >/dev/null 2>&1)
 then
   echo "Has clang."
-  # doesn't work under clang yet.
+  make test COMPILER_TYPE=clang
 fi
 
 #==============================================================================
