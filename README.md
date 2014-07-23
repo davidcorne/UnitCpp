@@ -143,3 +143,12 @@ Each `TEST` does 3 things:
 3. It lets you provide the body of the overriden function `run()`.
 
 The reason a global object is declared is to call the constructor. In the constructor of `TestCase` it registers itself so `TestRegister` knows which tests to run. This is how as long as the objects are linked against, `TestRegister::test_register().run_tests()` will run them all.
+
+
+__ Do you use this? __
+
+I made UnitC++ for my personal use. This means that I use it whenever I need to test anything. 
+
+__ How is UnitC++ tested? __
+
+It's tested using UnitC++ of course! I run continuous integration using [drone.io](https://drone.io/bitbucket.org/davidcorne/unitcpp). The current state of the build is [![Build Status](https://drone.io/bitbucket.org/davidcorne/unitcpp/status.png)](https://drone.io/bitbucket.org/davidcorne/unitcpp/latest).
