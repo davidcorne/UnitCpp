@@ -5,11 +5,8 @@
 //=============================================================================
 TEST(Maths, sqrt_results)
 {
-  double result = Maths::sqrt(4.0);
-  TEST_EQUAL(result, 2);
-
-  result = Maths::sqrt(2);
-  TEST_APPROX_EQUAL(result, 1.414, 0.001);
+  test_equal(Maths::sqrt(4.0), 2);
+  TEST_APPROX_EQUAL(Maths::sqrt(2), 1.414, 0.001);
   
 }
 
