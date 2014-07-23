@@ -5,10 +5,13 @@ UnitC++ is a modern, light weight, header-only c++ library for making unit testi
 ## How to use UnitC++ ##
 
 ### How to get UnitC++ ###
+
 UnitC++ is stored in a mercurial repository. The best way to get it is to clone it onto local disk. Like so.
 
     cd ~
     hg clone https://davidcorne@bitbucket.org/davidcorne/unitcpp
+
+You can also download/clone it from GitHub at `https://github.com/davidcorne/UnitCpp`.
 
 ### How to include UnitC++ in your project ###
 
@@ -151,3 +154,7 @@ This is because unfortunately macros are the best way of doing some things. Macr
 1. For judging compiler support. For the TEST_THROWS functionality we use variadic templates, this was not supported by visual studio until 2013. As pre-2013 visual studio compilers are in very wide use, we decided to include this functionality for those with compiler support, and to not break the build of those without.
 
 2. For generating good error messages in tests. Compare the following message; `Fail: These arguments should be equal` and `Fail: "Maths::sqrt(4.0) should equal 2." utest_Maths.cpp:8`. I know I prefer the second one, and getting the line of code, file name and line number cannot be done without macros.
+
+## Contributing to UnitC++ ##
+
+The GitHub site is a mirror of the mercurial repository. So you should use mercurial and bitbucket. Send me a pull request at [https://davidcorne@bitbucket.org/davidcorne/unitcpp](https://davidcorne@bitbucket.org/davidcorne/unitcpp) and I'll get back to you.
