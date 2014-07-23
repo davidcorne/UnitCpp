@@ -1,5 +1,5 @@
 #==============================================================================
-# This is so I can test it with visual studio and g++.
+# This is so I can test it with the visual studio compiler, g++ and clang.
 
 COMPILER_TYPE = gcc
 
@@ -17,7 +17,7 @@ endif
 #==============================================================================
 ifeq ($(COMPILER_TYPE), clang)
   COMPILER = clang++
-  COMPILER_ARGS = -I.. -Wall -Werror -std=c++11
+  COMPILER_ARGS = -I.. -std=c++11 -Wall -Werror
   OUT_OBJECT_FILE = -o
   OUT_EXE_FILE = -o
   NO_LINK = -c

@@ -135,7 +135,7 @@ I made UnitC++ for my personal use. This means that I use it whenever I need to 
 
 __How is UnitC++ tested?__
 
-It's tested using UnitC++ of course! I run continuous integration using [drone.io](https://drone.io/bitbucket.org/davidcorne/unitcpp). I currently test it using `g++` and am looking at testing using `clang`. The current state of the build is [![Build Status](https://drone.io/bitbucket.org/davidcorne/unitcpp/status.png)](https://drone.io/bitbucket.org/davidcorne/unitcpp/latest).
+It's tested using UnitC++ of course! I run continuous integration using [drone.io](https://drone.io/bitbucket.org/davidcorne/unitcpp). I currently test it with `g++`, `clang` and `cl`. On drone.io I test `g++` and `clang` and I test/develop with `g++` and `cl` on my windows machine using cygwin. The current state of the drone.io build is [![Build Status](https://drone.io/bitbucket.org/davidcorne/unitcpp/status.png)](https://drone.io/bitbucket.org/davidcorne/unitcpp/latest).
 
 __How does it work?__
 
