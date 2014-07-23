@@ -2,8 +2,8 @@
 // Internal macro for working out if variadic templates are supported by the
 // compiler or not.
 
-#ifndef VariadicTemplatesSupported_H
-#define VariadicTemplatesSupported_H
+#ifndef UnitCppVariadicTemplatesSupported_H
+#define UnitCppVariadicTemplatesSupported_H
 
 // For using visual studio. Support is from Visual Studio 2013.
 #ifdef _MSC_VER

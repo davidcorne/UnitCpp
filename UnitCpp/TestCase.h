@@ -10,10 +10,11 @@
 //   test_equal<path>("C:/Users", "C:\Users")
 // will pass.
 
-#ifndef TestCase_H
-#define TestCase_H
+#ifndef UnitCppTestCase_H
+#define UnitCppTestCase_H
 
 #include <UnitCpp/TestResult.h>
+#include <UnitCpp/Capabilities.h>
 
 #include <list>
 #include <iostream>
@@ -46,20 +47,20 @@
     TEST_MESSAGE(#A " should be within " #TOLERANCE " of " #B ".")\
   )
 
-#define TEST_THROWS(FUNCTION, EXCEPTION, ...)   \
-  test_throws<EXCEPTION>( \
-    #FUNCTION " should throw " #EXCEPTION " when given arguments {" #__VA_ARGS__ "}.", \
-    FUNCTION, \
-    ##__VA_ARGS__ \
-  )
-
 #define TEST_TRUE(A) \
   test_true(A, TEST_MESSAGE(#A " should be true."))
 
 #define TEST_FALSE(A) \
   test_false(A, TEST_MESSAGE(#A " should be false."))
 
-#include <UnitCpp/Internal/VariadicTemplatesSupported.h>
+#ifdef UNITCPP_TEST_THROWS_AVAILABLE
+#define TEST_THROWS(FUNCTION, EXCEPTION, ...)   \
+  test_throws<EXCEPTION>( \
+    #FUNCTION " should throw " #EXCEPTION " when given arguments {" #__VA_ARGS__ "}.", \
+    FUNCTION, \
+    ##__VA_ARGS__ \
+  )
+#endif // UNITCPP_TEST_THROWS_AVAILABLE
 
 //=============================================================================
 class TestCase {
@@ -101,10 +102,10 @@ public:
   template <typename U, typename V, typename W>
   void test_approx_equal(const U& first, const V& second, const W& tolerance, std::string message);
 
-#if UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
+#if UNITCPP_TEST_THROWS_AVAILABLE
   template <typename Texception, typename TFunction, typename... Args >
   void test_throws(std::string message, TFunction func, Args... arguments);
-#endif // UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
+#endif // UNITCPP_TEST_THROWS_AVAILABLE
   
   void test_true(bool ok);
 
@@ -227,7 +228,7 @@ void TestCase::test_approx_equal(
   );
 }
 
-#if UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
+#if UNITCPP_TEST_THROWS_AVAILABLE
 //=============================================================================
 template <typename Texception, typename TFunction, typename... Args >
 void TestCase::test_throws(
@@ -244,7 +245,7 @@ void TestCase::test_throws(
   }
   test_true(exception_thrown, message);
 }
-#endif // UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
+#endif // UNITCPP_TEST_THROWS_AVAILABLE
 
 //=============================================================================
 inline void TestCase::test_true(bool ok)

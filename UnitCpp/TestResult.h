@@ -1,6 +1,6 @@
 //=============================================================================
-#ifndef TestResult_H
-#define TestResult_H
+#ifndef UnitCppTestResult_H
+#define UnitCppTestResult_H
 
 #include <string>
 

@@ -1,7 +1,7 @@
 //=============================================================================
 
-#ifndef TestRegister_H
-#define TestRegister_H
+#ifndef UnitCppTestRegister_H
+#define UnitCppTestRegister_H
 
 #include <memory>
 #include <map>

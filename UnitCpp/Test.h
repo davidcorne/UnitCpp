@@ -25,8 +25,8 @@
 //       TestRegister::test_register().run_tests();
 //     to run all tests.
 
-#ifndef Test_H
-#define Test_H
+#ifndef UnitCppTest_H
+#define UnitCppTest_H
 
 #include <UnitCpp/TestRegister.h>
 #include <UnitCpp/TestCase.h>
