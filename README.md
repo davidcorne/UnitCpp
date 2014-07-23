@@ -128,4 +128,4 @@ Ok, this isn't actually a commonly asked question. But, if you're compiler doesn
 
 __ How do I report an issue or request a feature __
 
-I am always happy to fix a bug or take a look at an improvement, you just have to let me know about it. The best way to do this is file an issue on my issue tracker. This is located [https://bitbucket.org/davidcorne/unitcpp/issues?status=new&status=open](here) Don't be shy, if there's 
+I am always happy to fix a bug or take a look at an improvement, you just have to let me know about it. The best way to do this is file an issue on my issue tracker. This is located [https://bitbucket.org/davidcorne/unitcpp/issues?status=new&status=open](here) don't be shy, I'm not going to snap at anyone.
