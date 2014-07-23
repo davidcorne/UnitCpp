@@ -151,3 +151,4 @@ This is because unfortunately macros are the best way of doing some things. Macr
 1. For judging compiler support. For the TEST_THROWS functionality we use variadic templates, this was not supported by visual studio until 2013. As pre-2013 visual studio compilers are in very wide use, we decided to include this functionality for those with compiler support, and to not break the build of those without.
 
 2. For generating good error messages in tests. Compare the following message; `Fail: These arguments should be equal` and `Fail: "Maths::sqrt(4.0) should equal 2." utest_Maths.cpp:8`. I know I prefer the second one, and getting the line of code, file name and line number cannot be done without macros.
+
