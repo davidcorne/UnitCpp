@@ -118,21 +118,21 @@ In the `Example` folder there is a working example for a further demonstration o
 
 ## Frequently Asked Questions ##
 
-__You say this is a modern library, why are there so many preprocessor macros?__
-
-This is because unfortunately macros are the best way of doing some things. Macros are used for 2 reasons in UnitC++. 
-
-1. For judging compiler support. For the TEST_THROWS functionality we use variadic templates, this was not supported by visual studio until 2013. As pre-2013 visual studio compilers are in very wide use, we decided to include this functionality for those with compiler support, and to not break the build of those without.
-
-2. For generating good error messages in tests. Compare the following message; `Fail: These arguments should be equal` and `Fail: "Maths::sqrt(4.0) should equal 2." utest_Maths.cpp:8`. I know I prefer the second one, and getting the line of code, file name and line number cannot be done without macros.
-
 __ UnitC++ doesn't work with my compiler!__
 
 Ok, this isn't actually a commonly asked question. But, if your compiler doesn't work with UnitC++ please let me know! I will fix this as soon as I can. See _How do I report an issue or request a feature_ for how to let me know, thanks.
 
-__ How do I report an issue or request a feature __
+__ How do I request a feature or report an issue __
 
-I am always happy to fix a bug or take a look at an improvement, you just have to let me know about it. The best way to do this is file an issue on my issue tracker. This is located [https://bitbucket.org/davidcorne/unitcpp/issues?status=new&status=open](here) don't be shy, I'm not going to snap at anyone.
+I am always happy to take a look at an improvement or fix a bug, you just have to let me know about it. The best way to do this is file an issue on my issue tracker. This is located [https://bitbucket.org/davidcorne/unitcpp/issues?status=new&status=open](here) don't be shy, I'm not going to snap at anyone.
+
+__ Do you use this? __
+
+I made UnitC++ for my personal use. This means that I use it whenever I need to test anything. 
+
+__ How is UnitC++ tested? __
+
+It's tested using UnitC++ of course! I run continuous integration using [drone.io](https://drone.io/bitbucket.org/davidcorne/unitcpp). I currently test it using `g++` and am looking at testing using `clang`. The current state of the build is [![Build Status](https://drone.io/bitbucket.org/davidcorne/unitcpp/status.png)](https://drone.io/bitbucket.org/davidcorne/unitcpp/latest).
 
 __ How does it work? __
 
@@ -144,11 +144,10 @@ Each `TEST` does 3 things:
 
 The reason a global object is declared is to call the constructor. In the constructor of `TestCase` it registers itself so `TestRegister` knows which tests to run. This is how as long as the objects are linked against, `TestRegister::test_register().run_tests()` will run them all.
 
+__You say this is a modern library, why are there so many preprocessor macros?__
 
-__ Do you use this? __
+This is because unfortunately macros are the best way of doing some things. Macros are used for 2 reasons in UnitC++. 
 
-I made UnitC++ for my personal use. This means that I use it whenever I need to test anything. 
+1. For judging compiler support. For the TEST_THROWS functionality we use variadic templates, this was not supported by visual studio until 2013. As pre-2013 visual studio compilers are in very wide use, we decided to include this functionality for those with compiler support, and to not break the build of those without.
 
-__ How is UnitC++ tested? __
-
-It's tested using UnitC++ of course! I run continuous integration using [drone.io](https://drone.io/bitbucket.org/davidcorne/unitcpp). The current state of the build is [![Build Status](https://drone.io/bitbucket.org/davidcorne/unitcpp/status.png)](https://drone.io/bitbucket.org/davidcorne/unitcpp/latest).
+2. For generating good error messages in tests. Compare the following message; `Fail: These arguments should be equal` and `Fail: "Maths::sqrt(4.0) should equal 2." utest_Maths.cpp:8`. I know I prefer the second one, and getting the line of code, file name and line number cannot be done without macros.
