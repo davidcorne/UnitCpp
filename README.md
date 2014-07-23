@@ -93,6 +93,8 @@ This is obviously a contrived example, there are several tests checking the same
 
 Note the use of `TEST_THROWS`, it is for testing that a certain exception was thrown. It takes a function to call, the exception which should be thrown and the arguments to the function. Note the use of a [lambda function](http://www.cprogramming.com/c++11/c++11-lambda-closures.html), this is because `TEST_THROWS` is expecting a function and you want to call a member function.
 
+In each `TEST` you can use functions from `TestCase`. This means for example, you can call `test_equal<double>(1, some_function())` if you want the values to be compared as `doubles`s not `int`s.
+
 __ Running the tests __
 
 So you've written a nice set of tests and now you want to run them. This is done with the `TestRegister` class. This is a singleton that has registered all of the tests you've declared with the `TEST` macro. These are run in the following way.
@@ -107,6 +109,8 @@ int main()
 ~~~
 
 As long as the code with the tests in is linked into the executable `TestRegister::test_register().run_tests()` will run the tests.
+
+You can also call `TestRegister::test_register().run_tests("group_name")` to run all the tests in a specific group.
 
 __Working examples __
 
@@ -124,8 +128,18 @@ This is because unfortunately macros are the best way of doing some things. Macr
 
 __ UnitC++ doesn't work with my compiler!__
 
-Ok, this isn't actually a commonly asked question. But, if you're compiler doesn't work with UnitC++ please let me know! I will fix this as soon as I can. See _How do I report an issue or request a feature_ for how to let me know, thanks.
+Ok, this isn't actually a commonly asked question. But, if your compiler doesn't work with UnitC++ please let me know! I will fix this as soon as I can. See _How do I report an issue or request a feature_ for how to let me know, thanks.
 
 __ How do I report an issue or request a feature __
 
 I am always happy to fix a bug or take a look at an improvement, you just have to let me know about it. The best way to do this is file an issue on my issue tracker. This is located [https://bitbucket.org/davidcorne/unitcpp/issues?status=new&status=open](here) don't be shy, I'm not going to snap at anyone.
+
+__ How does it work? __
+
+Each `TEST` does 3 things:
+
+1. It defines a class derived from `TestCase`.
+2. It makes a global instance of this class.
+3. It lets you provide the body of the overriden function `run()`.
+
+The reason a global object is declared is to call the constructor. In the constructor of `TestCase` it registers itself so `TestRegister` knows which tests to run. This is how as long as the objects are linked against, `TestRegister::test_register().run_tests()` will run them all.
