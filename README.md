@@ -107,7 +107,7 @@ So you've written a nice set of tests and now you want to run them. This is done
 
 int main()
 {
-  return TestRegister::test_register().run_tests();
+  return UnitCpp::TestRegister::test_register().run_tests();
 }
 ~~~
 
