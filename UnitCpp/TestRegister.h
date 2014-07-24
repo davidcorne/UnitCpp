@@ -7,6 +7,9 @@
 #include <map>
 #include <list>
 
+
+namespace UnitCpp {
+
 class TestCase;
 
 //=============================================================================
@@ -30,29 +33,30 @@ private:
 
   std::map<std::string, std::list<TestCase*> >  m_test_table;
 };
+}
 
 #include <UnitCpp/TestCase.h>
 #include <iostream>
 
 //=============================================================================
-inline TestRegister& TestRegister::test_register()
+inline UnitCpp::TestRegister& UnitCpp::TestRegister::test_register()
 {
   static TestRegister s_register;
   return s_register;
 }
 
 //=============================================================================
-inline TestRegister::TestRegister()
+inline UnitCpp::TestRegister::TestRegister()
 {
 }
 
 //=============================================================================
-inline TestRegister::~TestRegister()
+inline UnitCpp::TestRegister::~TestRegister()
 {
 }
 
 //=============================================================================
-inline void TestRegister::register_test(
+inline void UnitCpp::TestRegister::register_test(
   std::string class_name,
   TestCase* test
 )
@@ -61,7 +65,7 @@ inline void TestRegister::register_test(
 }
 
 //=============================================================================
-inline int TestRegister::run_tests(std::string class_name)
+inline int UnitCpp::TestRegister::run_tests(std::string class_name)
 {
   int return_code = 0;
   std::list<TestCase*> tests = m_test_table.at(class_name);
@@ -77,7 +81,7 @@ inline int TestRegister::run_tests(std::string class_name)
 }
 
 //=============================================================================
-inline int TestRegister::run_tests()
+inline int UnitCpp::TestRegister::run_tests()
 {
   int return_code = 0;
   for (auto it = std::begin(m_test_table); it != std::end(m_test_table); ++it) {

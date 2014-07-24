@@ -63,6 +63,9 @@
 #endif // UNITCPP_TEST_THROWS_AVAILABLE
 
 //=============================================================================
+namespace UnitCpp {
+  
+//=============================================================================
 class TestCase {
 public:
 
@@ -127,79 +130,81 @@ private:
   std::list<TestResult> m_results;
 };
 
+}
+
 //=============================================================================
-inline TestCase::TestCase(std::string group, std::string name)
+inline UnitCpp::TestCase::TestCase(std::string group, std::string name)
   : m_group(group),
     m_name(name),
     m_passed(true)
 {
-  TestRegister::test_register().register_test(group, this);
+  UnitCpp::TestRegister::test_register().register_test(group, this);
 }
 
 //=============================================================================
-inline TestCase::~TestCase()
+inline UnitCpp::TestCase::~TestCase()
 {
 }
 
 //=============================================================================
 template <typename U, typename V>
-void TestCase::test_equal(const U& first, const V& second)
+void UnitCpp::TestCase::test_equal(const U& first, const V& second)
 {
   test_equal(first, second, "These arguments should be equal");
 }
 
 //=============================================================================
 template <typename U, typename V>
-void TestCase::test_equal(const U& first, const V& second, std::string message)
+void UnitCpp::TestCase::test_equal(const U& first, const V& second, std::string message)
 {
   test_true(first == second, message);
 }
 
 //=============================================================================
 template <typename U, typename V>
-void TestCase::test_not_equal(const U& first, const V& second)
+void UnitCpp::TestCase::test_not_equal(const U& first, const V& second)
 {
   test_not_equal(first, second, "These arguments should not be equal");
 }
 
 //=============================================================================
 template <typename U, typename V>
-void TestCase::test_not_equal(const U& first, const V& second, std::string message)
+void UnitCpp::TestCase::test_not_equal(const U& first, const V& second, std::string message)
 {
   test_true(first != second, message);
 }
 
 //=============================================================================
 template <typename U, typename V>
-void TestCase::test_less_than(const U& first, const V& second)
+void UnitCpp::TestCase::test_less_than(const U& first, const V& second)
 {
   test_less_than(first, second, "Argument 1 should be less than argument 2");
 }
 
 //=============================================================================
 template <typename U, typename V>
-void TestCase::test_less_than(const U& first, const V& second, std::string message)
+void UnitCpp::TestCase::test_less_than(const U& first, const V& second, std::string message)
 {
   test_true(first < second, message);
 }
 
 //=============================================================================
 template <typename U, typename V>
-void TestCase::test_more_than(const U& first, const V& second)
+void UnitCpp::TestCase::test_more_than(const U& first, const V& second)
 {
   test_more_than(first, second, "Argument 1 should be more than argument 2");
 }
 
 //=============================================================================
 template <typename U, typename V>
-void TestCase::test_more_than(const U& first, const V& second, std::string message)
+void UnitCpp::TestCase::test_more_than(const U& first, const V& second, std::string message)
 {
   test_true(first > second, message);
 }
 
 //=============================================================================
 template <typename U, typename V, typename W>
-void TestCase::test_approx_equal(
+void UnitCpp::TestCase::test_approx_equal(
   const U& first,
   const V& second,
   const W& tolerance
@@ -215,7 +220,7 @@ void TestCase::test_approx_equal(
 
 //=============================================================================
 template <typename U, typename V, typename W>
-void TestCase::test_approx_equal(
+void UnitCpp::TestCase::test_approx_equal(
   const U& first,
   const V& second,
   const W& tolerance,
@@ -231,7 +236,7 @@ void TestCase::test_approx_equal(
 #if UNITCPP_TEST_THROWS_AVAILABLE
 //=============================================================================
 template <typename Texception, typename TFunction, typename... Args >
-void TestCase::test_throws(
+void UnitCpp::TestCase::test_throws(
   std::string message,
   TFunction func,
   Args... arguments
@@ -248,13 +253,13 @@ void TestCase::test_throws(
 #endif // UNITCPP_TEST_THROWS_AVAILABLE
 
 //=============================================================================
-inline void TestCase::test_true(bool ok)
+inline void UnitCpp::TestCase::test_true(bool ok)
 {
   test_true(ok, "Should be true.");
 }
 
 //=============================================================================
-inline void TestCase::test_true(bool ok, std::string message)
+inline void UnitCpp::TestCase::test_true(bool ok, std::string message)
 {
   TestResult result = {ok, message};
   m_results.push_back(result);
@@ -264,19 +269,19 @@ inline void TestCase::test_true(bool ok, std::string message)
 }
 
 //=============================================================================
-inline void TestCase::test_false(bool not_ok)
+inline void UnitCpp::TestCase::test_false(bool not_ok)
 {
   test_false(not_ok, "Should be false.");
 }
 
 //=============================================================================
-inline void TestCase::test_false(bool not_ok, std::string message)
+inline void UnitCpp::TestCase::test_false(bool not_ok, std::string message)
 {
   test_true(!not_ok, message);
 }
 
 //=============================================================================
-inline void TestCase::display_results(std::ostream& os)
+inline void UnitCpp::TestCase::display_results(std::ostream& os)
 {
   os << "Test \"" << m_group << ":" << m_name << "\"\n\n";
   for (auto it = std::begin(m_results); it != std::end(m_results); ++it) {
@@ -295,7 +300,7 @@ inline void TestCase::display_results(std::ostream& os)
 }
 
 //=============================================================================
-inline bool TestCase::passed() const
+inline bool UnitCpp::TestCase::passed() const
 {
   return m_passed;
 }

@@ -59,7 +59,7 @@
 
 //=============================================================================
 #define TEST(GROUP, NAME)                            \
-  class test_##GROUP##_##NAME : public TestCase { \
+  class test_##GROUP##_##NAME : public UnitCpp::TestCase { \
 public: \
   test_##GROUP##_##NAME(std::string group, std::string name); \
   virtual void run() override; \

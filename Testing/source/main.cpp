@@ -3,5 +3,5 @@
 
 //=============================================================================
 int main() {
-  return TestRegister::test_register().run_tests();
+  return UnitCpp::TestRegister::test_register().run_tests();
 }
