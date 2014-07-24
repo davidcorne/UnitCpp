@@ -4,6 +4,9 @@
 set -e
 
 tested_compilers=""
+# Remove previous tests, in case UnitC++ has changed, but the tests haven't
+make clean
+
 #==============================================================================
 if $(command -v clang >/dev/null 2>&1)
 then
