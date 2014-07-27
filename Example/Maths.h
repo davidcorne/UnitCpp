@@ -4,10 +4,12 @@
 #ifndef Maths_H
 #define Maths_H
 
+#include <exception>
+
 //=============================================================================
 namespace Maths {
 
-  class OutOfRangeException{};
+  class OutOfRangeException : public std::exception {};
   
   double sqrt(double number);
   // Returns the square root of the number.

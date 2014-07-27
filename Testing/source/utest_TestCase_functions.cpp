@@ -115,7 +115,7 @@ TEST(test, test_approx_equal)
 
 #if UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
 //=============================================================================
-class TestException {};
+class TestException : public std::exception {};
 
 //=============================================================================
 void test_exception_function()
@@ -156,6 +156,7 @@ TEST(test, test_throws)
     -1
   );
   TEST_THROWS(test_exception_function, TestException);
+  TEST_THROWS(test_exception_function, std::exception);
   TEST_THROWS(test_exception_function_1, TestException, -10);
   TEST_THROWS(test_exception_function_2, TestException, "Hi", "There");
 }
