@@ -1,0 +1,9 @@
+prefix=$(INSTALL_PATH)
+exec_prefix=${prefix}
+includedir=${prefix}/include
+version=$(VERSION)
+
+Name: UnitC++
+Description: A lightweight, portable, modern C++ unit testing library.
+Version: ${version}
+Cflags: -I${includedir}/unitcpp_${version}
