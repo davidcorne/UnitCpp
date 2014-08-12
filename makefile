@@ -1,7 +1,7 @@
 #==============================================================================
 INSTALL_PATH?=/usr/local
 # find this somewhere
-VERSION=1.0.0
+VERSION=$(shell cat Version.txt)
 # This could be buggy, see http://stackoverflow.com/a/2359849 but can't do
 # better
 PKG_CONFIG_PATH?=$(shell pkg-config --debug 2>&1 | sed -ne '/Scanning directory /{s///p;q;}')
@@ -12,7 +12,7 @@ all:
 
 #==============================================================================
 install:
-	@echo "Installing to $(INSTALL_PATH)."
+	@echo "Installing version $(VERSION) to $(INSTALL_PATH)."
 	@mkdir -p $(INSTALL_PATH)
 	@mkdir -p $(INSTALL_PATH)/include
 	@mkdir -p $(INSTALL_PATH)/include/unitcpp_$(VERSION)
