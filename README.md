@@ -6,10 +6,17 @@ UnitC++ is a modern, light weight, header-only c++ library for making unit testi
 
 ### How to get UnitC++ ###
 
-UnitC++ is stored in a mercurial repository. The best way to get it is to clone it onto local disk. Like so.
+__ For Users __
+
+UnitC++ has a project page on [SourceForge](https://sourceforge.net/projects/unitcpp/) which has versioned downloads.
+
+__ For Developers __
+
+UnitC++ is stored in a mercurial repository centrally at bitbucket. The best way to get it is to clone it onto local disk. Like so.
 
     cd ~
     hg clone https://davidcorne@bitbucket.org/davidcorne/unitcpp
+
 
 You can also download/clone it from GitHub at `https://github.com/davidcorne/UnitCpp`.
 
