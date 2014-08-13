@@ -62,8 +62,6 @@
   )
 #endif // UNITCPP_TEST_THROWS_AVAILABLE
 
-#define UNITCPP_FRIEND_ACCESS(GROUP) friend class unittest_;
-
 //=============================================================================
 namespace UnitCpp {
   
