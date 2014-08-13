@@ -19,8 +19,6 @@ private:
   TestClass& operator=(const TestClass& other);
   // Prohibited copying.
 
-  //TODO: macroise this.
-  friend class test_TestClass_test_constructor;
   void double_value();
   
   int m_i;
