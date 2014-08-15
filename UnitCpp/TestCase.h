@@ -126,7 +126,7 @@ public:
   std::string fail_reason() const;
 
   std::string title() const;
-  // Returns 'Test "group:name"'.
+  // Returns "group:name".
   
 private:
 
@@ -292,7 +292,7 @@ inline void UnitCpp::TestCase::test_false(bool not_ok, std::string message)
 //=============================================================================
 inline void UnitCpp::TestCase::display_results(std::ostream& os)
 {
-  os << title() << "\n\n";
+  os << "Test " << title() << "\n\n";
   for (auto it = std::begin(m_results); it != std::end(m_results); ++it) {
     TestResult result = *it;
     if (result.pass) {
@@ -323,8 +323,8 @@ inline std::string UnitCpp::TestCase::fail_reason() const
 //=============================================================================
 inline std::string UnitCpp::TestCase::title() const
 {
-  std::string a_title("Test \"");
-  a_title += m_group + ":" + m_name;
+  std::string a_title("\"");
+  a_title += m_group + ":" + m_name + "\"";
   return a_title;
 }
 
