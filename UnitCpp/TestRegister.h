@@ -26,12 +26,17 @@ public:
   // Run all of the tests.
   
   int run_tests(std::string class_name);
-  // Returns an int so it can be used for return value of main().
+  // Run only the tests registed for class_name.
+
+  int run_tests_interactive(int argc, char** argv);
+  // Run tests using command line input.
   
 private:
   TestRegister();
 
   std::map<std::string, std::list<TestCase*> >  m_test_table;
+  std::list<TestCase*> m_failures;
+  std::ostream& m_os;
 };
 }
 
@@ -47,6 +52,7 @@ inline UnitCpp::TestRegister& UnitCpp::TestRegister::test_register()
 
 //=============================================================================
 inline UnitCpp::TestRegister::TestRegister()
+  : m_os(std::cout)
 {
 }
 
@@ -72,9 +78,10 @@ inline int UnitCpp::TestRegister::run_tests(std::string class_name)
   for (auto it = std::begin(tests); it != std::end(tests); ++it) {
     TestCase* test = *it;
     test->run();
-    test->display_results(std::cout);
+    test->display_results(m_os);
     if (!test->passed()) {
       return_code = 1;
+      m_failures.push_back(test);
     }
   }
   return return_code;
@@ -87,7 +94,24 @@ inline int UnitCpp::TestRegister::run_tests()
   for (auto it = std::begin(m_test_table); it != std::end(m_test_table); ++it) {
     return_code += run_tests(it->first);
   }
+  if (return_code) {
+    // there were some failures.
+    m_os << "Failures:\n\n";
+    for (auto it = std::begin(m_failures); it != std::end(m_failures); ++it) {
+      TestCase& test = **it;
+      m_os
+        << test.title()
+        << "\n"
+        << test.fail_reason()
+        << "\n";
+    }
+  }
   return return_code;
 }
 
+//=============================================================================
+inline int UnitCpp::TestRegister::run_tests_interactive(int argc, char** argv)
+{
+  return 1;
+}
 #endif

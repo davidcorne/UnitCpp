@@ -120,13 +120,20 @@ public:
 
   void display_results(std::ostream& os);
 
+  //----- API for querying information.
   bool passed() const;
+
+  std::string fail_reason() const;
+
+  std::string title() const;
+  // Returns 'Test "group:name"'.
   
 private:
 
   std::string m_group;
   std::string m_name;
   bool m_passed;
+  std::string m_fail_reason;
   std::list<TestResult> m_results;
 };
 
@@ -136,7 +143,8 @@ private:
 inline UnitCpp::TestCase::TestCase(std::string group, std::string name)
   : m_group(group),
     m_name(name),
-    m_passed(true)
+    m_passed(true),
+    m_fail_reason("")
 {
   UnitCpp::TestRegister::test_register().register_test(group, this);
 }
@@ -265,6 +273,7 @@ inline void UnitCpp::TestCase::test_true(bool ok, std::string message)
   m_results.push_back(result);
   if (!ok) {
     m_passed = false;
+    m_fail_reason += "  " + message + "\n";
   }
 }
 
@@ -283,7 +292,7 @@ inline void UnitCpp::TestCase::test_false(bool not_ok, std::string message)
 //=============================================================================
 inline void UnitCpp::TestCase::display_results(std::ostream& os)
 {
-  os << "Test \"" << m_group << ":" << m_name << "\"\n\n";
+  os << title() << "\n\n";
   for (auto it = std::begin(m_results); it != std::end(m_results); ++it) {
     TestResult result = *it;
     if (result.pass) {
@@ -304,4 +313,19 @@ inline bool UnitCpp::TestCase::passed() const
 {
   return m_passed;
 }
+
+//=============================================================================
+inline std::string UnitCpp::TestCase::fail_reason() const
+{
+  return m_fail_reason;
+}
+
+//=============================================================================
+inline std::string UnitCpp::TestCase::title() const
+{
+  std::string a_title("Test \"");
+  a_title += m_group + ":" + m_name;
+  return a_title;
+}
+
 #endif
