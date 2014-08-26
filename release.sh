@@ -36,5 +36,5 @@ zip -r unitcpp.zip unitcpp
 cd ..
 mv build/unitcpp.zip .
 rm -r build
-rsync.exe -avP -e ssh unitcpp.zip davidcorne1@frs.sourceforge.net:/home/frs/project/unitcpp/unitcpp$(cat Version.txt)/
+rsync -avP -e ssh unitcpp.zip davidcorne1@frs.sourceforge.net:/home/frs/project/unitcpp/unitcpp$(cat Version.txt)/
 rm unitcpp.zip
