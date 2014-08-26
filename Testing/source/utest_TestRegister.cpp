@@ -17,7 +17,6 @@ TEST(TestRegister, A)
   char* argv[] = {0, one};
   int value = test_register.run_tests_interactive(2, argv);
   TEST_EQUAL(value, 0);
-  TEST_EQUAL(value, -1);
 
   delete[] one;
 }
