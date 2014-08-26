@@ -23,4 +23,4 @@ obj/utest_MyString.obj: utest_MyString.cpp MyString.h
 
 #==============================================================================
 test: exe/utest.exe
-	./$<
+	./$< 0
