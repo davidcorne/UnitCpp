@@ -60,6 +60,10 @@ private:
 
   int run_test(int choice);
   // Runs the choosen test.
+
+  int run_test(std::stringstream& ss, bool& ok) const;
+  // Pass in a stringstream, get a number out of it and run the test, bool is
+  // for if the stringstream does not contain a valid test.
   
   //===========================================================================
   class TestMenuItem {
@@ -188,14 +192,31 @@ inline int UnitCpp::TestMenu::create(int argc, char** argv)
     // Run the test number given.
     std::string argument(argv[1]);
     std::stringstream ss(argument);
-    size_t choice = m_tests.size() + 1;
-    if (!(ss >> choice) || choice > m_tests.size()) {
-      std::cerr << argument << " is not a valid test number." << std::endl;
-    } else {
-      m_tests[choice - 1]->run();
-    }
+    bool ok = false;
+    int result = run_test(ss, ok);
+    if (ok) {
+      return result;
+    }    
   } else {
     std::cerr << "Too many arguments given." << std::endl;
+  }
+  return 1;
+}
+
+//=============================================================================
+inline int UnitCpp::TestMenu::run_test(std::stringstream& ss, bool& ok) const
+{
+  size_t choice = m_tests.size() + 1;
+  if (!(ss >> choice) || choice > m_tests.size()) {
+    std::cerr << ss.str() << " is not a valid test number." << std::endl;
+    ok = false;
+  } else {
+    ok = true;
+    if (choice == 0) {
+      return UnitCpp::TestRegister::test_register().run_tests();
+    } else {
+      return m_tests[choice - 1]->run();
+    }
   }
   return 1;
 }
@@ -204,25 +225,17 @@ inline int UnitCpp::TestMenu::create(int argc, char** argv)
 inline int UnitCpp::TestMenu::run_interactively()
 {
   draw_interactive_menu();
-  size_t choice = m_tests.size() + 1;
   std::ostream& os = TestRegister::test_register().os();
   std::string input("");
-  while (choice > m_tests.size()) {
+  bool ok = false;
+  int result = 1;
+  while (!ok) {
     os << "Choose: ";
     std::getline(std::cin, input);
     std::stringstream ss(input);
-    if (!(ss >> choice)) {
-      os << "Input a valid number.\n";
-      choice = m_tests.size() + 1;
-    }
+    result = run_test(ss, ok);
   }
-  if (choice == 0) {
-    // run all the tests
-    return UnitCpp::TestRegister::test_register().run_tests();
-  } else {
-    return m_tests[choice-1]->run();
-  }
-  return 0;
+  return result;
 }
 
 //=============================================================================
