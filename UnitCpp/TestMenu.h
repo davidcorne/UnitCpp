@@ -192,7 +192,7 @@ inline int UnitCpp::TestMenu::create(int argc, char** argv)
     if (!(ss >> choice) || choice > m_tests.size()) {
       std::cerr << argument << " is not a valid test number." << std::endl;
     } else {
-      m_tests[choice]->run();
+      m_tests[choice - 1]->run();
     }
   } else {
     std::cerr << "Too many arguments given." << std::endl;
