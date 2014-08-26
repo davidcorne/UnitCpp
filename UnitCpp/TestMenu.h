@@ -4,7 +4,27 @@
 //
 // The interactive menu will look something like this:
 //
-// <nnn> TODO add menu
+// ================================================================================
+// 0) All tests.
+// 
+// ================================================================================
+// 1) TestCast
+//   2) "TestCast:test_display"
+// 
+// ================================================================================
+// 3) TestRegister
+//   4) "TestRegister:A"
+// 
+// ================================================================================
+// 5) test
+//   6) "test:test_equal"
+//   7) "test:test_not_equal"
+//   8) "test:test_less_than"
+//   9) "test:test_more_than"
+//   10) "test:test_true"
+//   11) "test:test_false"
+//   12) "test:test_approx_equal"
+//   13) "test:test_throws"
 
 #ifndef UnitCppInteractiveTestMenu_H
 #define UnitCppInteractiveTestMenu_H
@@ -122,7 +142,7 @@ private:
 //----- Source
 
 #include <UnitCpp/TestRegister.h>
-
+#include <sstream>
 //----- TestMenu
 
 //=============================================================================
@@ -164,10 +184,20 @@ inline int UnitCpp::TestMenu::create(int argc, char** argv)
   if (argc == 1) {
     // no command line arguments given.
     return run_interactively();
+  } else if (argc == 2) {
+    // Run the test number given.
+    std::string argument(argv[1]);
+    std::stringstream ss(argument);
+    size_t choice = m_tests.size() + 1;
+    if (!(ss >> choice) || choice > m_tests.size()) {
+      std::cerr << argument << " is not a valid test number." << std::endl;
+    } else {
+      m_tests[choice]->run();
+    }
   } else {
-    throw 5;
-    return 5;
+    std::cerr << "Too many arguments given." << std::endl;
   }
+  return 1;
 }
 
 //=============================================================================
@@ -176,19 +206,23 @@ inline int UnitCpp::TestMenu::run_interactively()
   draw_interactive_menu();
   size_t choice = m_tests.size() + 1;
   std::ostream& os = TestRegister::test_register().os();
+  std::string input("");
   while (choice > m_tests.size()) {
     os << "Choose: ";
-    std::cin >> choice;
-    if (!std::cin.good()) {
-      std::cin.clear();
+    std::getline(std::cin, input);
+    std::stringstream ss(input);
+    if (!(ss >> choice)) {
+      os << "Input a valid number.\n";
+      choice = m_tests.size() + 1;
     }
   }
   if (choice == 0) {
-    // run all
+    // run all the tests
+    return UnitCpp::TestRegister::test_register().run_tests();
   } else {
-    m_tests[choice-1]->run();
+    return m_tests[choice-1]->run();
   }
-  return 8;
+  return 0;
 }
 
 //=============================================================================
