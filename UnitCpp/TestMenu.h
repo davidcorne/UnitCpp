@@ -138,6 +138,31 @@ private:
     std::string m_group_name;
   };
   
+  //===========================================================================
+  class TestMenuAllTests : public TestMenuItem {
+  public:
+    
+    TestMenuAllTests(TestRegister& test_register);
+
+    virtual ~TestMenuAllTests();
+
+    virtual bool banner() const override;
+    // Should we print a banner before it?
+
+    virtual std::string title() const override;
+    // The title to print.
+    
+    virtual size_t indent() const override;
+    // How far down the tree is this?
+
+    virtual int run() override;
+    // Run this test.
+    
+  private:
+    
+    TestRegister& m_test_register;
+  };
+  
   std::vector<std::shared_ptr<TestMenuItem> > m_tests;
 };
   
@@ -156,6 +181,9 @@ inline UnitCpp::TestMenu::TestMenu(
 {
   std::map<std::string, std::list<TestCase*> >& test_table =
     test_register.m_test_table;
+  m_tests.push_back(
+    std::make_shared<TestMenu::TestMenuAllTests>(test_register)
+  );
   for (
     auto group_it = std::begin(test_table);
     group_it != std::end(test_table);
@@ -207,16 +235,12 @@ inline int UnitCpp::TestMenu::create(int argc, char** argv)
 inline int UnitCpp::TestMenu::run_test(std::stringstream& ss, bool& ok) const
 {
   size_t choice = m_tests.size() + 1;
-  if (!(ss >> choice) || choice > m_tests.size()) {
+  if (!(ss >> choice) || choice >= m_tests.size()) {
     std::cerr << ss.str() << " is not a valid test number." << std::endl;
     ok = false;
   } else {
     ok = true;
-    if (choice == 0) {
-      return UnitCpp::TestRegister::test_register().run_tests();
-    } else {
-      return m_tests[choice - 1]->run();
-    }
+    return m_tests[choice]->run();
   }
   return 1;
 }
@@ -244,12 +268,7 @@ inline void UnitCpp::TestMenu::draw_interactive_menu()
   std::ostream& os = TestRegister::test_register().os();
   // string 'fill' constructor.
   std::string banner(80, '=');
-  os
-    << banner
-    << "\n"
-    << "0) All tests."
-    << "\n";
-  int index = 1;
+  int index = 0;
   for (auto it = std::begin(m_tests); it != std::end(m_tests); ++it) {
     auto test_item = *it;
     if (test_item->banner()) {
@@ -313,6 +332,45 @@ inline std::string UnitCpp::TestMenu::TestMenuItemGroup::title() const
 inline int UnitCpp::TestMenu::TestMenuItemGroup::run()
 {
   return UnitCpp::TestRegister::test_register().run_tests(m_group_name);
+}
+
+//----- TestMenuAllTests
+
+//=============================================================================
+inline UnitCpp::TestMenu::TestMenuAllTests::TestMenuAllTests(
+  TestRegister& test_register
+)
+  : m_test_register(test_register)
+{
+}
+
+//=============================================================================
+inline UnitCpp::TestMenu::TestMenuAllTests::~TestMenuAllTests()
+{
+}
+
+//=============================================================================
+inline size_t UnitCpp::TestMenu::TestMenuAllTests::indent() const
+{
+  return 0;
+}
+
+//=============================================================================
+inline bool UnitCpp::TestMenu::TestMenuAllTests::banner() const
+{
+  return true;
+}
+
+//=============================================================================
+inline std::string UnitCpp::TestMenu::TestMenuAllTests::title() const
+{
+  return "All tests.";
+}
+
+//=============================================================================
+inline int UnitCpp::TestMenu::TestMenuAllTests::run()
+{
+  return UnitCpp::TestRegister::test_register().run_tests();
 }
 
 //----- TestMenuItemCase
