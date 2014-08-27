@@ -13,6 +13,6 @@ This is a note of what changed in each version.
 ## 1.1.1 ##
 
 - Visual studio W4 fixed (could not generate some assignment operators.)
-- Added REALEASE_NOTES.md.
+- Added RELEASE_NOTES.md.
 
 
