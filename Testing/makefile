@@ -5,6 +5,8 @@ COMPILER_TYPE = gcc
 
 TARGET = exe.$(COMPILER_TYPE)/utest.exe
 
+UNITCPP_FILES = $(shell find ../UnitCpp -type f)
+
 #==============================================================================
 ifeq ($(COMPILER_TYPE), gcc)
   COMPILER = g++
@@ -44,7 +46,7 @@ $(TARGET): $(OBJECTS)
 	$(COMPILER) $(COMPILER_ARGS) $^ $(OUT_EXE_FILE)$@
 
 #==============================================================================
-obj.$(COMPILER_TYPE)/%.obj: source/%.cpp
+obj.$(COMPILER_TYPE)/%.obj: source/%.cpp $(UNITCPP_FILES)
 	@mkdir -p obj.$(COMPILER_TYPE)
 	$(COMPILER) $(COMPILER_ARGS) $(NO_LINK) $< $(OUT_OBJECT_FILE)$@
 
