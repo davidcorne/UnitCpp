@@ -37,6 +37,10 @@ public:
 private:
   TestRegister();
 
+  TestRegister(const TestRegister&);
+  TestRegister& operator=(const TestRegister&);
+  // Prohibited copy functions.
+  
   friend class TestMenu;
   
   std::map<std::string, std::list<TestCase*> >  m_test_table;

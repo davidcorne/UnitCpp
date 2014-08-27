@@ -51,6 +51,10 @@ public:
   
 private:
 
+  TestMenu(const TestMenu&);
+  TestMenu& operator=(const TestMenu&);
+  // Prohibited copy functions.
+  
   void draw_interactive_menu();
   // Prints the interactive menu.
 
@@ -84,6 +88,12 @@ private:
     
     virtual int run() = 0;
     // Run this test.
+
+  private:
+
+    TestMenuItem(const TestMenuItem&);
+    TestMenuItem& operator=(const TestMenuItem&);
+    // Prohibited copy functions.
     
   };
 
@@ -108,6 +118,10 @@ private:
     // Run this test.
     
   private:
+
+    TestMenuItemCase(const TestMenuItemCase&);
+    TestMenuItemCase& operator=(const TestMenuItemCase&);
+    // Prohibited copy functions.
 
     TestCase* m_test_case;
   };
@@ -134,6 +148,10 @@ private:
     
   private:
     
+    TestMenuItemGroup(const TestMenuItemGroup&);
+    TestMenuItemGroup& operator=(const TestMenuItemGroup&);
+    // Prohibited copy functions.
+
     TestRegister& m_test_register;
     std::string m_group_name;
   };
@@ -160,6 +178,10 @@ private:
     
   private:
     
+    TestMenuAllTests(const TestMenuAllTests&);
+    TestMenuAllTests& operator=(const TestMenuAllTests&);
+    // Prohibited copy functions.
+
     TestRegister& m_test_register;
   };
   
