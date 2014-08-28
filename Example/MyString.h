@@ -18,7 +18,7 @@ public:
   bool valid() const;
   
 private:
-
+  UNITCPP_FRIEND_TEST(MyString, validity_test)
   bool m_valid;
   std::string m_str;
 };
