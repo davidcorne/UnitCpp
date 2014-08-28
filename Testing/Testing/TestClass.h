@@ -14,7 +14,8 @@ public:
   ~TestClass();
   
 private:
-
+  
+  UNITCPP_FRIEND_TEST(TestClass, test_constructor)
   TestClass(const TestClass& other);
   TestClass& operator=(const TestClass& other);
   // Prohibited copying.

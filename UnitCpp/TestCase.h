@@ -62,6 +62,11 @@
   )
 #endif // UNITCPP_TEST_THROWS_AVAILABLE
 
+// #define for access to private/protected members.
+#define UNITCPP_FRIEND_TEST(GROUP, NAME) \
+  friend class test_##GROUP##_##NAME;
+
+
 //=============================================================================
 namespace UnitCpp {
   

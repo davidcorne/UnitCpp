@@ -19,11 +19,30 @@
 //      }
 //     To see what functions to use inside tests, check out TestCase.h
 //
-//  2) Running all tests;
-//       TestRegister::test_register().run_tests(group/class_name);
-//     to run all tests in group or
-//       TestRegister::test_register().run_tests();
-//     to run all tests.
+// 2) Running all tests;
+//      TestRegister::test_register().run_tests(group/class_name);
+//    to run all tests in group or
+//      TestRegister::test_register().run_tests();
+//    to run all tests.
+//
+// 3) To access the internals of a class in a test (e.g. call private
+//    functions/access members) you need to declare the tests a friend.
+//    you do this by specifying UNITCPP_FRIEND_TEST(group, name) in the
+//    class you are testing.
+//    e.g.
+//      class Container {
+//      public:
+//      ...
+//      private:
+//        UNITCPP_FRIEND_TEST(Container, internals)
+//        int m_member;
+//      };
+//      
+//      TEST(Container, internals)
+//      {
+//        Container container;
+//        TEST_EQUAL(container.m_member, 5);
+//      }
 
 #ifndef UnitCppTest_H
 #define UnitCppTest_H
