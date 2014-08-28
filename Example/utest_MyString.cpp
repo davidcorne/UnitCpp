@@ -25,4 +25,6 @@ TEST(MyString, validity_test)
   TEST_THROWS([&](){invalid_string.length();}, MyString::InvalidStringException);
 #endif // UNITCPP_TEST_THROWS_AVAILABLE
 
+  // this test is a friend of MyString
+  TEST_EQUAL(valid_string.m_valid, valid_string.valid());
 }

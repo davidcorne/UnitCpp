@@ -113,7 +113,7 @@ TEST(test, test_approx_equal)
   TEST_APPROX_EQUAL(3.0 / 2.0, 1.5, tol);
 }
 
-#if UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
+#if UNITCPP_TEST_THROWS_AVAILABLE
 //=============================================================================
 class TestException : public std::exception {};
 
@@ -161,4 +161,4 @@ TEST(test, test_throws)
   TEST_THROWS(test_exception_function_2, TestException, "Hi", "There");
 }
 
-#endif // UNITCPP_INTERNALS_VARIADIC_TEMPLATES_SUPPORTED
+#endif // UNITCPP_TEST_THROWS_AVAILABLE
