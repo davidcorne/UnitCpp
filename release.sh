@@ -1,6 +1,12 @@
 #!/bin/sh
 # Written by: DGC
 
+set -e
+
+#==============================================================================
+# setup globals
+BASE_DIR=$(realpath $(dirname $0))
+
 #==============================================================================
 usage() {
   cat <<EOF
@@ -12,6 +18,11 @@ Options:
 -h                 Display this message.
 EOF
   exit
+}
+
+#==============================================================================
+cleanup() {
+  rm -rf $BASE_DIR/build
 }
 
 #==============================================================================
@@ -29,12 +40,11 @@ do
   esac
 done
 
+trap cleanup EXIT
+
 hg archive build/unitcpp
 cd build
 rm unitcpp/.hg*
 zip -r unitcpp.zip unitcpp
-cd ..
-mv build/unitcpp.zip .
-rm -r build
-rsync.exe -avP -e ssh unitcpp.zip davidcorne1@frs.sourceforge.net:/home/frs/project/unitcpp/unitcpp$(cat Version.txt)/
-rm unitcpp.zip
+rsync -avP -e ssh unitcpp.zip davidcorne1@frs.sourceforge.net:/home/frs/project/unitcpp/unitcpp$(cat ../Version.txt)/
+

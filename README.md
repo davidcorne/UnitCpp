@@ -105,9 +105,48 @@ Note the use of `TEST_THROWS`, it is for testing that a certain exception was th
 
 In each `TEST` you can use functions from `TestCase`. This means for example, you can call `test_equal<double>(1, some_function())` if you want the values to be compared as `doubles`s not `int`s.
 
-__Running the tests__
+__Running the tests with a menu__
 
-So you've written a nice set of tests and now you want to run them. This is done with the `TestRegister` class. This is a singleton that has registered all of the tests you've declared with the `TEST` macro. These are run in the following way.
+So you've written a nice set of tests and now you want to run them. This is done with the `TestRegister` class. This is a singleton that has registered all of the tests you've declared with the `TEST` macro. These are run using the following code.
+
+~~~
+//=============================================================================
+int main(int argc, char** argv)
+{
+  return UnitCpp::TestRegister::test_register().run_tests_interactive(
+    argc,
+    argv
+  );
+}
+~~~
+
+This will produce a menu which looks something like this:
+
+~~~
+================================================================================
+0) All tests.
+
+================================================================================
+1) Maths
+  2) "Maths:sqrt_results"
+  3) "Maths:is_square"
+  4) "Maths:sqrt_precondition"
+
+================================================================================
+5) MyString
+  6) "MyString:length_test"
+  7) "MyString:validity_test"
+
+~~~
+
+This gives you the option of running any individual test, any group of tests or all tests.
+
+These numbers can also be give on the command line. e.g. `utest.exe 0` will always run all tests.
+
+__ Running the tests without a menu __
+
+If you don't want the menu or command line options and just want an executable which runs all of the tests the you want a test harness which looks like this:
+
 
 ~~~
 #include <UnitCpp/TestRegister.h>
