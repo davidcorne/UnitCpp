@@ -105,6 +105,26 @@ Note the use of `TEST_THROWS`, it is for testing that a certain exception was th
 
 In each `TEST` you can use functions from `TestCase`. This means for example, you can call `test_equal<double>(1, some_function())` if you want the values to be compared as `doubles`s not `int`s.
 
+One thing which many people want to do with unit tests is access private members of the class they are testing. This can be done in UnitC++ by use of the `UNITCPP_FRIEND_TEST` macro. This is used like so;
+
+~~~
+class Container {
+public:
+...
+private:
+  UNITCPP_FRIEND_TEST(Container, internals)
+  int m_member;
+};
+
+TEST(Container, internals)
+{
+  Container container;
+  TEST_EQUAL(container.m_member, 5);
+}
+~~~
+
+So you declare the specific test a friend of the class you are testing. The macro is called `UNITCPP_FRIEND_TEST` so it is declared in the same way as a `friend class`. 
+
 __Running the tests with a menu__
 
 So you've written a nice set of tests and now you want to run them. This is done with the `TestRegister` class. This is a singleton that has registered all of the tests you've declared with the `TEST` macro. These are run using the following code.
