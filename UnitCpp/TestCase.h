@@ -80,6 +80,12 @@ public:
   
   virtual ~TestCase();
 
+  void stop_print();
+  // Stops printing the results untill restarted.
+  
+  void restart_print();
+  // Restarts printing results.
+  
   template <typename U, typename V>
   void test_equal(const U& first, const V& second);
 
@@ -138,6 +144,8 @@ private:
   std::string m_group;
   std::string m_name;
   bool m_passed;
+  bool m_printing;
+  
   std::string m_fail_reason;
   std::list<TestResult> m_results;
 };
@@ -149,6 +157,7 @@ inline UnitCpp::TestCase::TestCase(std::string group, std::string name)
   : m_group(group),
     m_name(name),
     m_passed(true),
+    m_printing(true),
     m_fail_reason("")
 {
   UnitCpp::TestRegister::test_register().register_test(group, this);
@@ -275,7 +284,9 @@ inline void UnitCpp::TestCase::test_true(bool ok)
 inline void UnitCpp::TestCase::test_true(bool ok, std::string message)
 {
   TestResult result = {ok, message};
-  m_results.push_back(result);
+  if (m_printing) {
+    m_results.push_back(result);
+  }
   if (!ok) {
     m_passed = false;
     m_fail_reason += "  " + message + "\n";
@@ -331,6 +342,18 @@ inline std::string UnitCpp::TestCase::title() const
   std::string a_title("\"");
   a_title += m_group + ":" + m_name + "\"";
   return a_title;
+}
+
+//=============================================================================
+inline void UnitCpp::TestCase::stop_print()
+{
+  m_printing = false;
+}
+
+//=============================================================================
+inline void UnitCpp::TestCase::restart_print()
+{
+  m_printing = true;
 }
 
 #endif
