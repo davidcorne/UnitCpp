@@ -78,7 +78,7 @@ public:
 
   virtual void run() = 0;
   
-  virtual ~TestCase();
+  virtual ~TestCase() = 0;
 
   template <typename U, typename V>
   void test_equal(const U& first, const V& second);
@@ -143,6 +143,9 @@ private:
 };
 
 }
+
+//----- Source
+#include <UnitCpp/TestRegister.h>
 
 //=============================================================================
 inline UnitCpp::TestCase::TestCase(std::string group, std::string name)
