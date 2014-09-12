@@ -287,7 +287,8 @@ inline void UnitCpp::TestCase::test_true(bool ok)
 inline void UnitCpp::TestCase::test_true(bool ok, std::string message)
 {
   TestResult result = {ok, message};
-  if (m_printing) {
+  // if it's printing or a failure push the result.
+  if (m_printing || !ok) {
     m_results.push_back(result);
   }
   if (!ok) {
