@@ -125,6 +125,34 @@ TEST(Container, internals)
 
 So you declare the specific test a friend of the class you are testing. The macro is called `UNITCPP_FRIEND_TEST` so it is declared in the same way as a `friend class`. 
 
+Note: If you are running many tests in a loop you may want to only print the results which are failures. This is done using the `stop_printing()` and `restart_printing()` functions. Like this:
+
+~~~
+TEST(Test, loop)
+{
+  std::vector<int> ints;
+  stop_printing();
+  for (int i = 0; i < 1000; ++i) {
+    ints.push_back(i);
+    TEST_EQUAL(ints [i], i);
+  }
+  restart_printing();
+  TEST_EQUAL(ints.size(), 1000);
+}
+~~~
+
+This will only print
+
+~~~
+Pass: "ints.size() should equal 1000." utest_README.cpp:15
+~~~
+
+Without an additional 1000 lines of 
+
+~~~
+Pass: "ints [i] should equal i." utest_README.cpp:12
+~~~
+
 __Running the tests with a menu__
 
 So you've written a nice set of tests and now you want to run them. This is done with the `TestRegister` class. This is a singleton that has registered all of the tests you've declared with the `TEST` macro. These are run using the following code.
