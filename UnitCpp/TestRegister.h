@@ -129,34 +129,6 @@ inline std::ostream& UnitCpp::TestRegister::os()
 //=============================================================================
 inline int UnitCpp::TestRegister::run_tests_interactive(int argc, char** argv)
 {
-  // <nnn> // string 'fill' constructor.
-  // <nnn> std::string banner(80, '=');
-  // <nnn> banner += "\n";
-  // <nnn> int index = 1;
-  // <nnn> for (
-  // <nnn>   auto group_it = std::begin(m_test_table);
-  // <nnn>   group_it != std::end(m_test_table);
-  // <nnn>   ++group_it
-  // <nnn> ) {
-  // <nnn>   m_os
-  // <nnn>     << banner
-  // <nnn>     << group_it->first
-  // <nnn>     << "\n";
-  // <nnn>   for (
-  // <nnn>     auto test_it = std::begin(group_it->second);
-  // <nnn>     test_it != std::end(group_it->second);
-  // <nnn>     ++test_it
-  // <nnn>   ) {
-  // <nnn>     m_os
-  // <nnn>       << "  "
-  // <nnn>       << index
-  // <nnn>       << ") "
-  // <nnn>       << (*test_it)->title()
-  // <nnn>       << "\n";
-  // <nnn>     ++index;
-  // <nnn>   }
-  // <nnn>   m_os << "\n";
-  // <nnn> }
   TestMenu menu(*this);
   return menu.create(argc, argv);
 }
