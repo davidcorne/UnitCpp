@@ -26,9 +26,9 @@ TEST(TestClass, test_constructor)
 //=============================================================================
 TEST(TestClass, stop_print)
 {
-  stop_print();
+  stop_printing();
   TEST_TRUE(4 < 7);
-  restart_print();
+  restart_printing();
   TEST_TRUE(4 < 8);
   std::stringstream ss;
   display_results(ss);

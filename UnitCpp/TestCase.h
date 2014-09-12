@@ -80,10 +80,10 @@ public:
   
   virtual ~TestCase();
 
-  void stop_print();
+  void stop_printing();
   // Stops printing the results untill restarted.
   
-  void restart_print();
+  void restart_printing();
   // Restarts printing results.
   
   template <typename U, typename V>
@@ -345,13 +345,13 @@ inline std::string UnitCpp::TestCase::title() const
 }
 
 //=============================================================================
-inline void UnitCpp::TestCase::stop_print()
+inline void UnitCpp::TestCase::stop_printing()
 {
   m_printing = false;
 }
 
 //=============================================================================
-inline void UnitCpp::TestCase::restart_print()
+inline void UnitCpp::TestCase::restart_printing()
 {
   m_printing = true;
 }
