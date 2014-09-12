@@ -31,6 +31,9 @@ public:
   int run_tests_interactive(int argc, char** argv);
   // Run tests using command line input.
 
+  bool group(std::string group_name);
+  // Is group_name a group?
+
   std::ostream& os();
   // Get the stream we are outputting to.
   
@@ -42,6 +45,8 @@ private:
   // Prohibited copy functions.
   
   friend class TestMenu;
+  friend class UnregisteredTestCase;
+  friend class UnregisteredTestCase_unregistered;
   
   std::map<std::string, std::list<TestCase*> >  m_test_table;
   std::list<TestCase*> m_failures;
@@ -131,5 +136,11 @@ inline int UnitCpp::TestRegister::run_tests_interactive(int argc, char** argv)
 {
   TestMenu menu(*this);
   return menu.create(argc, argv);
+}
+
+//=============================================================================
+inline bool UnitCpp::TestRegister::group(std::string group_name)
+{
+  return m_test_table.find(group_name) != std::end(m_test_table);
 }
 #endif

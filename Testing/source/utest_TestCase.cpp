@@ -1,6 +1,7 @@
 //=============================================================================
 #include <UnitCpp/Test.h>
 #include "Testing/TestClass.h"
+#include "Testing/UnregisteredTestCase.h"
 
 #include <sstream>
 
@@ -35,5 +36,20 @@ TEST(TestClass, stop_print)
   size_t index = ss.str().find("4 < 7");
   TEST_EQUAL(index, std::string::npos);
   index = ss.str().find("4 < 8");
+  TEST_NOT_EQUAL(index, std::string::npos);
+
+  // Test that a failure will be printed.
+  UnitCpp::UnregisteredTestCase test([](TestCase& test_case){
+      test_case.stop_printing();
+      test_case.test_true(false, "This message.");
+    }
+  );
+  test.run();
+  TEST_FALSE(test.passed());
+  // now check that the fail was printed
+  ss.str("");
+  ss.clear();
+  test.display_results(ss);
+  index = ss.str().find("Fail: This message.");
   TEST_NOT_EQUAL(index, std::string::npos);
 }

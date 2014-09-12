@@ -78,7 +78,7 @@ public:
 
   virtual void run() = 0;
   
-  virtual ~TestCase();
+  virtual ~TestCase() = 0;
 
   void stop_printing();
   // Stops printing the results untill restarted.
@@ -151,6 +151,9 @@ private:
 };
 
 }
+
+//----- Source
+#include <UnitCpp/TestRegister.h>
 
 //=============================================================================
 inline UnitCpp::TestCase::TestCase(std::string group, std::string name)
@@ -284,7 +287,8 @@ inline void UnitCpp::TestCase::test_true(bool ok)
 inline void UnitCpp::TestCase::test_true(bool ok, std::string message)
 {
   TestResult result = {ok, message};
-  if (m_printing) {
+  // if it's printing or a failure push the result.
+  if (m_printing || !ok) {
     m_results.push_back(result);
   }
   if (!ok) {
