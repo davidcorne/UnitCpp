@@ -28,30 +28,30 @@
   "\"" MESSAGE "\" " __FILE__ ":" UNITCPP_INTERNALS_S_(__LINE__)
 
 #define TEST_EQUAL(A, B, ...)                                       \
-  test_equal(A, B, TEST_MESSAGE(#A " should equal " #B ". " __VA_ARGS__))
+  test_equal(A, B, TEST_MESSAGE(#A " should equal " #B ". " #__VA_ARGS__))
 
 #define TEST_NOT_EQUAL(A, B, ...) \
-  test_not_equal(A, B, TEST_MESSAGE(#A " should not equal " #B ". " __VA_ARGS__))
+  test_not_equal(A, B, TEST_MESSAGE(#A " should not equal " #B ". " #__VA_ARGS__))
 
 #define TEST_LESS_THAN(A, B, ...) \
-  test_less_than(A, B, TEST_MESSAGE(#A " should be less than " #B ". " __VA_ARGS__))
+  test_less_than(A, B, TEST_MESSAGE(#A " should be less than " #B ". " #__VA_ARGS__))
 
 #define TEST_MORE_THAN(A, B, ...) \
-  test_more_than(A, B, TEST_MESSAGE(#A " should be more than " #B ". " __VA_ARGS__))
+  test_more_than(A, B, TEST_MESSAGE(#A " should be more than " #B ". " #__VA_ARGS__))
 
 #define TEST_APPROX_EQUAL(A, B, TOLERANCE, ...) \
   test_approx_equal(\
     A, \
     B, \
     TOLERANCE, \
-    TEST_MESSAGE(#A " should be within " #TOLERANCE " of " #B ". " __VA_ARGS__)\
+    TEST_MESSAGE(#A " should be within " #TOLERANCE " of " #B ". " #__VA_ARGS__)\
   )
 
 #define TEST_TRUE(A, ...) \
-  test_true(A, TEST_MESSAGE(#A " should be true. " __VA_ARGS__))
+  test_true(A, TEST_MESSAGE(#A " should be true. " #__VA_ARGS__))
 
 #define TEST_FALSE(A, ...) \
-  test_false(A, TEST_MESSAGE(#A " should be false. " __VA_ARGS__))
+  test_false(A, TEST_MESSAGE(#A " should be false. " #__VA_ARGS__))
 
 #ifdef UNITCPP_TEST_THROWS_AVAILABLE
 #define TEST_THROWS(FUNCTION, EXCEPTION, ...)   \

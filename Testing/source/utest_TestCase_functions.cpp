@@ -121,7 +121,14 @@ TEST(test, variadic_printing)
   TEST_NOT_EQUAL(a, b, "TEST:variadic_printing");
   std::stringstream ss;
   display_results(ss);
-  size_t index = ss.str().find("\"a should not equal b. TEST:variadic_printing\"");
+  size_t index = ss.str().find("\"a should not equal b. \"TEST:variadic_printing\"\"");
+  TEST_NOT_EQUAL(index, std::string::npos);
+
+  int c = 0;
+  TEST_EQUAL(a, c, a, " should equal ", c);
+  ss.str("");
+  display_results(ss);
+  index = ss.str().find("\"a should equal c. a, \" should equal \", c\"");
   TEST_NOT_EQUAL(index, std::string::npos);
 }
 
