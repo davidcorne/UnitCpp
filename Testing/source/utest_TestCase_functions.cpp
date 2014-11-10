@@ -113,6 +113,18 @@ TEST(test, test_approx_equal)
   TEST_APPROX_EQUAL(3.0 / 2.0, 1.5, tol);
 }
 
+//=============================================================================
+TEST(test, variadic_printing)
+{
+  int a = 0;
+  int b = 1;
+  TEST_NOT_EQUAL(a, b, "TEST:variadic_printing");
+  std::stringstream ss;
+  display_results(ss);
+  size_t index = ss.str().find("\"a should not equal b. TEST:variadic_printing\"");
+  TEST_NOT_EQUAL(index, std::string::npos);
+}
+
 #if UNITCPP_TEST_THROWS_AVAILABLE
 //=============================================================================
 class TestException : public std::exception {};
