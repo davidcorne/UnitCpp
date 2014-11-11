@@ -27,3 +27,6 @@ This is a note of what features have changed in each version. In each version te
 
 - Fix a bug with variadic user text only working for one argument.
 
+## 1.3.2 ##
+
+- Fix a bug with TEST_TRUE(pointer).
