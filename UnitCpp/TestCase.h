@@ -120,14 +120,18 @@ public:
   template <typename Texception, typename TFunction, typename... Args >
   void test_throws(std::string message, TFunction func, Args... arguments);
 #endif // UNITCPP_TEST_THROWS_AVAILABLE
-  
-  void test_true(bool ok);
 
-  void test_true(bool ok, std::string message);
+  template <typename U>
+  void test_true(U ok);
 
-  void test_false(bool not_ok);
+  template <typename U>
+  void test_true(U ok, std::string message);
 
-  void test_false(bool not_ok, std::string message);
+  template <typename U>
+  void test_false(U not_ok);
+
+  template <typename U>
+  void test_false(U not_ok, std::string message);
 
   void display_results(std::ostream& os);
 
@@ -278,33 +282,38 @@ void UnitCpp::TestCase::test_throws(
 #endif // UNITCPP_TEST_THROWS_AVAILABLE
 
 //=============================================================================
-inline void UnitCpp::TestCase::test_true(bool ok)
+template <typename U>
+inline void UnitCpp::TestCase::test_true(U ok)
 {
   test_true(ok, "Should be true.");
 }
 
 //=============================================================================
-inline void UnitCpp::TestCase::test_true(bool ok, std::string message)
+template <typename U>
+inline void UnitCpp::TestCase::test_true(U ok, std::string message)
 {
-  TestResult result = {ok, message};
+  bool passed = ok ? true : false;
+  TestResult result = {passed, message};
   // if it's printing or a failure push the result.
-  if (m_printing || !ok) {
+  if (m_printing || !passed) {
     m_results.push_back(result);
   }
-  if (!ok) {
+  if (!passed) {
     m_passed = false;
     m_fail_reason += "  " + message + "\n";
   }
 }
 
 //=============================================================================
-inline void UnitCpp::TestCase::test_false(bool not_ok)
+template <typename U>
+inline void UnitCpp::TestCase::test_false(U not_ok)
 {
   test_false(not_ok, "Should be false.");
 }
 
 //=============================================================================
-inline void UnitCpp::TestCase::test_false(bool not_ok, std::string message)
+template <typename U>
+inline void UnitCpp::TestCase::test_false(U not_ok, std::string message)
 {
   test_true(!not_ok, message);
 }
