@@ -132,6 +132,14 @@ TEST(test, variadic_printing)
   TEST_NOT_EQUAL(index, std::string::npos);
 }
 
+//=============================================================================
+TEST(test, pointer_comparison)
+{
+  int* i = new int(5);
+  TEST_TRUE(i);
+  delete i;
+}
+
 #if UNITCPP_TEST_THROWS_AVAILABLE
 //=============================================================================
 class TestException : public std::exception {};
