@@ -18,3 +18,15 @@ This is a note of what features have changed in each version. In each version te
 ## 1.2.0 ##
 
 - A new macro `UNITCPP_FRIEND_TEST` added for testing class internals.
+
+## 1.3.0 ##
+
+- The TEST_X macros have been made variadic so custom user text can be added. e.g. `TEST_EQUAL(15, size, "Wrong size.");`
+
+## 1.3.1 ##
+
+- Fix a bug with variadic user text only working for one argument.
+
+## 1.3.2 ##
+
+- Fix a bug with TEST_TRUE(pointer).
