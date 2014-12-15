@@ -20,12 +20,25 @@
 //=============================================================================
 template <int N, int D>
 struct Fraction {
- static const int Numerator = N;
- static const int Denominator = D;
+ static const int Numerator;
+ static const int Denominator;
 };
+
+template <int N, int D>
+const int Fraction<N, D>::Numerator = N;
+
+template <int N, int D>
+const int Fraction<N, D>::Denominator = D;
 
 //=============================================================================
 TEST(Issue, 3)
 {
- TEST_EQUAL(Fraction<1, 2>::Numerator, 1);
+  // The original code:
+  //   TEST_EQUAL(Fraction<1, 2>::Numerator, 1);
+  // This was a mistake of mine, this seperates into
+  //   test_equal((Fraction<1), (2>::Numerator)...
+  // The problem is the comma, this needs to be protected from the macro by the
+  // caller.
+  TEST_EQUAL((Fraction<1, 2>::Numerator), 1);
+  TEST_EQUAL((Fraction<1, 2>::Denominator), 2);
 }
