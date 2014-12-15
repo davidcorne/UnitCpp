@@ -30,3 +30,7 @@ This is a note of what features have changed in each version. In each version te
 ## 1.3.2 ##
 
 - Fix a bug with TEST_TRUE(pointer).
+
+## 1.3.3 ##
+
+- Add and fix an issue with templates and macro expansion (https://bitbucket.org/davidcorne/unitcpp/issue/3/test-macros-fail-with-some-arguments)
