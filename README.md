@@ -6,11 +6,11 @@ UnitC++ is a modern, light weight, header-only c++ library for making unit testi
 
 ### How to get UnitC++ ###
 
-__ For Users __
+__For Users__
 
 UnitC++ has a project page on [SourceForge](https://sourceforge.net/projects/unitcpp/) which has versioned downloads.
 
-__ For Developers __
+__For Developers__
 
 UnitC++ is stored in a mercurial repository centrally at bitbucket. The best way to get it is to clone it onto local disk. Like so.
 
@@ -191,7 +191,7 @@ This gives you the option of running any individual test, any group of tests or 
 
 These numbers can also be give on the command line. e.g. `utest.exe 0` will always run all tests.
 
-__ Running the tests without a menu __
+__Running the tests without a menu__
 
 If you don't want the menu or command line options and just want an executable which runs all of the tests the you want a test harness which looks like this:
 
