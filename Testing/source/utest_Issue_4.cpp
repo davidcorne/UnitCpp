@@ -12,6 +12,8 @@
 //=============================================================================
 TEST(Issue, 4)
 {
-  std::unique_ptr<int> ptr(new int(5));
-  TEST_TRUE(ptr);
+  std::unique_ptr<int> ptr_1(new int(5));
+  TEST_TRUE(ptr_1);
+  std::unique_ptr<int> ptr_2(nullptr);
+  TEST_FALSE(ptr_2);
 }
