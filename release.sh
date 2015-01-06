@@ -48,3 +48,4 @@ rm unitcpp/.hg*
 zip -r unitcpp.zip unitcpp
 rsync -avP -e ssh unitcpp.zip davidcorne1@frs.sourceforge.net:/home/frs/project/unitcpp/unitcpp$(cat ../Version.txt)/
 
+echo "Don't forget to push to https://davidcorne1@hg.code.sf.net/p/unitcpp/code unitcpp-code"
