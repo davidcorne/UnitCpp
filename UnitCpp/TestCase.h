@@ -122,16 +122,16 @@ public:
 #endif // UNITCPP_TEST_THROWS_AVAILABLE
 
   template <typename U>
-  void test_true(U ok);
+  void test_true(const U& ok);
 
   template <typename U>
-  void test_true(U ok, std::string message);
+  void test_true(const U& ok, std::string message);
 
   template <typename U>
-  void test_false(U not_ok);
+  void test_false(const U& not_ok);
 
   template <typename U>
-  void test_false(U not_ok, std::string message);
+  void test_false(const U& not_ok, std::string message);
 
   void display_results(std::ostream& os);
 
@@ -283,14 +283,14 @@ void UnitCpp::TestCase::test_throws(
 
 //=============================================================================
 template <typename U>
-inline void UnitCpp::TestCase::test_true(U ok)
+inline void UnitCpp::TestCase::test_true(const U& ok)
 {
   test_true(ok, "Should be true.");
 }
 
 //=============================================================================
 template <typename U>
-inline void UnitCpp::TestCase::test_true(U ok, std::string message)
+inline void UnitCpp::TestCase::test_true(const U& ok, std::string message)
 {
   bool passed = ok ? true : false;
   TestResult result = {passed, message};
@@ -306,14 +306,14 @@ inline void UnitCpp::TestCase::test_true(U ok, std::string message)
 
 //=============================================================================
 template <typename U>
-inline void UnitCpp::TestCase::test_false(U not_ok)
+inline void UnitCpp::TestCase::test_false(const U& not_ok)
 {
   test_false(not_ok, "Should be false.");
 }
 
 //=============================================================================
 template <typename U>
-inline void UnitCpp::TestCase::test_false(U not_ok, std::string message)
+inline void UnitCpp::TestCase::test_false(const U& not_ok, std::string message)
 {
   test_true(!not_ok, message);
 }
