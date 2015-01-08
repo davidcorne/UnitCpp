@@ -1,5 +1,5 @@
 //=============================================================================
-#include <UnitCpp/TestCase.h>
+#include <UnitCpp.h>
 
 #include <functional>
 

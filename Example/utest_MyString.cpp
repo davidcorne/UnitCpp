@@ -1,4 +1,4 @@
-#include <UnitCpp/Test.h>
+#include <UnitCpp.h>
 #include "MyString.h"
 
 //=============================================================================

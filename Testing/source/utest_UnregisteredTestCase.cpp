@@ -1,7 +1,7 @@
 //=============================================================================
 // Test the UnregisteredTestCase
 
-#include <UnitCpp/Test.h>
+#include <UnitCpp.h>
 
 #include "Testing/UnregisteredTestCase.h"
 

@@ -3,7 +3,7 @@
 #ifndef TestClass_H
 #define TestClass_H
 
-#include <UnitCpp/Test.h>
+#include <UnitCpp.h>
 
 //=============================================================================
 class TestClass {

@@ -15,7 +15,7 @@
 
 // Note: removed constexpr to work in older compilers.
 
-#include <UnitCpp/Test.h>
+#include <UnitCpp.h>
 
 //=============================================================================
 template <int N, int D>
