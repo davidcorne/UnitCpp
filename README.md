@@ -36,7 +36,7 @@ in Visual Studio you go to Project Properties -> C/C++ -> Additional Include Dir
 
 __Writing a test__
 
-The first thing to do is include `<UnitCpp/Test.h>`. This is the header whihc will bring in everything you need.
+The first thing to do is include `<UnitCpp/Test.h>`. This is the header which will bring in everything you need.
 
 Then you need to declare you are writing a test by writing `TEST(goup_name, test_name)`. This works like declaring a function, so a set of tests for a class called `MyString` will look something like this.
 
