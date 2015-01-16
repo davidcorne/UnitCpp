@@ -1,5 +1,5 @@
 #include <UnitCpp.h>
-#include "MyString.h"
+#include "Example/MyString.h"
 
 //=============================================================================
 TEST(MyString, length_test)
@@ -21,7 +21,7 @@ TEST(MyString, validity_test)
   MyString valid_string("");
   TEST_TRUE(valid_string.valid());
 
-#ifdef UNITCPP_TEST_THROWS_AVAILABLE
+#if UNITCPP_TEST_THROWS_AVAILABLE
   TEST_THROWS([&](){invalid_string.length();}, MyString::InvalidStringException);
 #endif // UNITCPP_TEST_THROWS_AVAILABLE
 

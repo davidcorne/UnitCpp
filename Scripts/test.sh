@@ -31,11 +31,39 @@ do
   esac
 done
 
-make -C Example
-chmod +x Example/exe/utest.exe
-Example/exe/utest.exe 0
-cd Testing
-chmod +x test.sh
-./test.sh
+#==============================================================================
+test_with_compiler() 
+{
+  compiler_type=$1
+  make -C Example COMPILER_TYPE=$compiler_type test
+  make -C Testing COMPILER_TYPE=$compiler_type test
+  
+}
 
+tested_compilers=""
 
+#==============================================================================
+if $(command -v clang >/dev/null 2>&1)
+then
+  echo "Has clang."
+  test_with_compiler clang
+  tested_compilers="$tested_compilers clang"
+fi
+
+#==============================================================================
+if $(command -v cl >/dev/null 2>&1)
+then
+  echo "Has cl."
+  test_with_compiler vs
+  tested_compilers="$tested_compilers cl"
+fi
+
+#==============================================================================
+if $(command -v g++ >/dev/null 2>&1)
+then
+  echo "Has g++."
+  test_with_compiler gcc
+  tested_compilers="$tested_compilers g++"
+fi
+
+echo "Tests and Examples run using:$tested_compilers"
