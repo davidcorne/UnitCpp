@@ -9,6 +9,8 @@ PKG_CONFIG_PATH?=$(shell pkg-config --debug 2>&1 | sed -ne '/Scanning directory 
 UNITCPP_FILES = $(shell find UnitCpp -type f)
 UNITCPP_FILE = UnitCpp.h
 
+UNITCPP_PC = Scripts/unitcpp.pc
+
 #==============================================================================
 $(UNITCPP_FILE): $(UNITCPP_FILES)
 	@echo "Creating single header."
@@ -20,9 +22,9 @@ install:
 	@mkdir -p $(INSTALL_PATH)/include/unitcpp_$(VERSION)
 	@cp UnitCpp.h $(INSTALL_PATH)/include/unitcpp_$(VERSION)
 	@echo "Making pkg-config aware of the installation."
-	@cat unitcpp.pc | sed -e "s:\$$(INSTALL_PATH):$(INSTALL_PATH):" -e "s:\$$(VERSION):$(VERSION):" \
+	@cat $(UNITCPP_PC) | sed -e "s:\$$(INSTALL_PATH):$(INSTALL_PATH):" -e "s:\$$(VERSION):$(VERSION):" \
       > $(PKG_CONFIG_PATH)/unitcpp.pc
-	@cat unitcpp.pc | sed -e "s:\$$(INSTALL_PATH):$(INSTALL_PATH):" -e "s:\$$(VERSION):$(VERSION):" \
+	@cat $(UNITCPP_PC) | sed -e "s:\$$(INSTALL_PATH):$(INSTALL_PATH):" -e "s:\$$(VERSION):$(VERSION):" \
       > $(PKG_CONFIG_PATH)/unitcpp-$(VERSION).pc
 	@echo "Installed successfully."
 
