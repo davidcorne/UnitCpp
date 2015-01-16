@@ -38,3 +38,7 @@ This is a note of what features have changed in each version. In each version te
 ## 1.3.4 ##
 
 - Fix an issue with non-copyably types in `TEST_TRUE/TEST_FALSE`. See [Issue 4](https://bitbucket.org/davidcorne/unitcpp/issue/4/allow-test_true-test_false-to-work-with).
+
+## 1.4.0 ##
+
+- Change from a Creative Commons licence, to an MIT licence. This is on the advice of [this](https://wiki.creativecommons.org/Frequently_Asked_Questions#Can_I_apply_a_Creative_Commons_license_to_software.3F).
