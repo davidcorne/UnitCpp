@@ -6,15 +6,11 @@ VERSION=$(shell cat Version.txt)
 # better
 PKG_CONFIG_PATH?=$(shell pkg-config --debug 2>&1 | sed -ne '/Scanning directory /{s///p;q;}')
 
-UNITCPP_FILES = $(shell find UnitCpp -type f)
-UNITCPP_FILE = UnitCpp.h
-
 UNITCPP_PC = Scripts/unitcpp.pc
 
-#==============================================================================
-$(UNITCPP_FILE): $(UNITCPP_FILES)
-	@echo "Creating single header."
-	@./Scripts/create_single_header.py > $@
+include common.mk
+
+.DEFAULT_GOAL := $(UNITCPP_FILE)
 
 #==============================================================================
 install:
