@@ -7,7 +7,7 @@
 //
 // This is because test_true/test_false take by copy, not reference.
 
-#include <UnitCpp/Test.h>
+#include <UnitCpp.h>
 
 //=============================================================================
 TEST(Issue, 4)

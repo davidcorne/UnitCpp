@@ -1,5 +1,5 @@
 //=============================================================================
-#include <UnitCpp/Test.h>
+#include <UnitCpp.h>
 #include "Testing/TestClass.h"
 #include "Testing/UnregisteredTestCase.h"
 

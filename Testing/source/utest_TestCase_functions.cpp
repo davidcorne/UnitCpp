@@ -1,6 +1,5 @@
 //=============================================================================
-#include <UnitCpp/Test.h>
-#include <UnitCpp/Internal/VariadicTemplatesSupported.h>
+#include <UnitCpp.h>
 
 //=============================================================================
 TEST(test, test_equal)

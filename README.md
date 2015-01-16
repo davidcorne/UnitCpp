@@ -1,6 +1,6 @@
 # UnitC++ #
 
-UnitC++ is a modern, light weight, header-only c++ library for making unit testing easy. The intention of UnitC++ is to make it really easy to test c++ code in a portable way.
+UnitC++ is a modern, light weight, single-header c++ library for making unit testing easy. The intention of UnitC++ is to make it really easy to test c++ code in a portable way.
 
 ## How to use UnitC++ ##
 
@@ -22,7 +22,7 @@ You can also download/clone it from GitHub at `https://github.com/davidcorne/Uni
 
 ### How to include UnitC++ in your project ###
 
-As a header-only library this step should be easy to accomplish. However While how you do this will vary depending on your build process, it will be straightforward. As this is a header-only library all you need to do is add the repository path to the compiler include line. Here are two examples of how that is done.
+As a single header library this step should be easy to accomplish. The UnitCpp.h header can be copied to your project, or installed and added to the include path. Here are two examples of how that is done.
 
 __From command line__
 
@@ -36,12 +36,12 @@ in Visual Studio you go to Project Properties -> C/C++ -> Additional Include Dir
 
 __Writing a test__
 
-The first thing to do is include `<UnitCpp/Test.h>`. This is the header which will bring in everything you need.
+The first thing to do is include `<UnitCpp.h>`. This is the header which will bring in everything you need.
 
 Then you need to declare you are writing a test by writing `TEST(goup_name, test_name)`. This works like declaring a function, so a set of tests for a class called `MyString` will look something like this.
 
 ~~~
-#include <UnitCpp/Test.h>
+#include <UnitCpp.h>
 
 TEST(MyString, length_test)
 {
@@ -71,7 +71,7 @@ TEST_THROWS(FUNCTION, EXCEPTION, ...)
 
 So here is a filled out version of the above example of a test.
 ~~~
-#include <UnitCpp/Test.h>
+#include <UnitCpp.h>
 
 TEST(MyString, length_test)
 {
@@ -197,7 +197,7 @@ If you don't want the menu or command line options and just want an executable w
 
 
 ~~~
-#include <UnitCpp/TestRegister.h>
+#include <UnitCpp.h>
 
 int main()
 {

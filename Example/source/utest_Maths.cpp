@@ -1,6 +1,6 @@
 //=============================================================================
-#include "Maths.h"
-#include <UnitCpp/Test.h>
+#include "Example/Maths.h"
+#include <UnitCpp.h>
 
 //=============================================================================
 TEST(Maths, sqrt_results)
@@ -19,7 +19,7 @@ TEST(Maths, is_square)
   TEST_FALSE(Maths::is_square(non_square));
 }
 
-#ifdef UNITCPP_TEST_THROWS_AVAILABLE
+#if UNITCPP_TEST_THROWS_AVAILABLE
 //=============================================================================
 TEST(Maths, sqrt_precondition)
 {
