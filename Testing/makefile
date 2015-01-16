@@ -6,6 +6,7 @@ COMPILER_TYPE = gcc
 TARGET = exe.$(COMPILER_TYPE)/utest.exe
 
 UNITCPP_FILES = $(shell find ../UnitCpp -type f)
+UNITCPP_FILE = ../UnitCpp.h
 
 #==============================================================================
 ifeq ($(COMPILER_TYPE), gcc)
@@ -46,9 +47,14 @@ $(TARGET): $(OBJECTS)
 	$(COMPILER) $(COMPILER_ARGS) $^ $(OUT_EXE_FILE)$@
 
 #==============================================================================
-obj.$(COMPILER_TYPE)/%.obj: source/%.cpp $(UNITCPP_FILES)
+obj.$(COMPILER_TYPE)/%.obj: source/%.cpp $(UNITCPP_FILE)
 	@mkdir -p obj.$(COMPILER_TYPE)
 	$(COMPILER) $(COMPILER_ARGS) $(NO_LINK) $< $(OUT_OBJECT_FILE)$@
+
+#==============================================================================
+$(UNITCPP_FILE): $(UNITCPP_FILES)
+	@echo "create_single_header.py > $@"
+	@../Scripts/create_single_header.py > $@
 
 #==============================================================================
 test: $(TARGET)
