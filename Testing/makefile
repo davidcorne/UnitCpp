@@ -20,7 +20,7 @@ obj.$(COMPILER_TYPE)/%.obj: source/%.cpp $(UNITCPP_FILE)
 	$(COMPILER) $(COMPILER_ARGS) $(NO_LINK) $< $(OUT_OBJECT_FILE)$@
 
 #==============================================================================
-test: $(TARGET)
+test: $(.DEFAULT_GOAL)
 	./$< 0
 
 #==============================================================================
