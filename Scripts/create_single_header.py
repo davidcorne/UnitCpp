@@ -49,7 +49,7 @@ def resolve_includes(parsed, header):
                 content.append(resolve_includes(parsed, include))
             else:
                 # keep function comments (indednted by 2)
-                if line[0:2] != "//":
+                if line[0:2] != "//" and not line.isspace():
                     content.append(line)
         return "".join(content)
     return ""
@@ -61,8 +61,10 @@ def create_single_header(header):
     This returns a string with the contents of header, but with the includes
     resolved.
     """
+    contents = list();
     parsed = list()
-    return resolve_includes(parsed, header)
+    contents.append(resolve_includes(parsed, header))
+    return "".join(contents)
             
 #==============================================================================
 def  parse_deps(directory):
@@ -83,4 +85,6 @@ def  parse_deps(directory):
 #==============================================================================
 if (__name__ == "__main__"):
     os.chdir(os.path.join(os.path.dirname(sys.argv[0]), os.path.pardir))
+    with open("LICENSE.md", "r") as license_file:
+        print(license_file.read())
     parse_deps("UnitCpp")
