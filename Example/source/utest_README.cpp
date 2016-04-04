@@ -12,5 +12,5 @@ TEST(Test, loop)
     TEST_EQUAL(ints [i], i);
   }
   restart_printing();
-  TEST_EQUAL(ints.size(), 1000);
+  TEST_EQUAL(ints.size(), 1000u);
 }

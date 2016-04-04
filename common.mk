@@ -31,7 +31,7 @@ ifdef COMPILER_TYPE
   #============================================================================
   ifeq ($(COMPILER_TYPE), clang)
     COMPILER = clang++
-    COMPILER_ARGS = -I.. -I. -std=c++11 -Wall -Werror
+    COMPILER_ARGS = -I.. -I. -std=c++11 -Wall -Werror -fexceptions
     OUT_OBJECT_FILE = -o
     OUT_EXE_FILE = -o
     NO_LINK = -c
