@@ -1,7 +1,7 @@
 #==============================================================================
 # This is a makefile for common defines and rules.
 
-UNITCPP_ROOT := $(dir $(lastword $(MAKEFILE_LIST)))
+UNITCPP_ROOT := $(dir $(lastword $(MAKEFILE_LIST)))/..
 
 UNITCPP_FILE := $(UNITCPP_ROOT)/UnitCpp/UnitCpp.h
 

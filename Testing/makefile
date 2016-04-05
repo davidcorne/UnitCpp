@@ -5,7 +5,7 @@
 
 COMPILER_TYPE = gcc
 
-include ../common.mk
+include ../MakeBase/common.mk
 
 #==============================================================================
 $(.DEFAULT_GOAL): $(OBJECTS)
