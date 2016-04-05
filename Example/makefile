@@ -4,7 +4,7 @@
 
 COMPILER_TYPE := gcc
 
-include ../common.mk
+include ../MakeBase/common.mk
 
 .DEFAULT_GOAL := exe.$(COMPILER_TYPE)/utest.exe
 
