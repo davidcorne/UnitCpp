@@ -16,7 +16,7 @@ include common.mk
 install:
 	@echo "Installing version $(VERSION) to $(INSTALL_PATH)."
 	@mkdir -p $(INSTALL_PATH)/include/unitcpp_$(VERSION)
-	@cp UnitCpp.h $(INSTALL_PATH)/include/unitcpp_$(VERSION)
+	@cp $(UNITCPP_FILE) $(INSTALL_PATH)/include/unitcpp_$(VERSION)
 	@echo "Making pkg-config aware of the installation."
 	@cat $(UNITCPP_PC) | sed -e "s:\$$(INSTALL_PATH):$(INSTALL_PATH):" -e "s:\$$(VERSION):$(VERSION):" \
       > $(PKG_CONFIG_PATH)/unitcpp.pc
