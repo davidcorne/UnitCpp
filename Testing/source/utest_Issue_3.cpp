@@ -16,19 +16,7 @@
 // Note: removed constexpr to work in older compilers.
 
 #include <UnitCpp.h>
-
-//=============================================================================
-template <int N, int D>
-struct Fraction {
- static const int Numerator;
- static const int Denominator;
-};
-
-template <int N, int D>
-const int Fraction<N, D>::Numerator = N;
-
-template <int N, int D>
-const int Fraction<N, D>::Denominator = D;
+#include "Testing/Fraction.h"
 
 //=============================================================================
 TEST(Issue, 3)
