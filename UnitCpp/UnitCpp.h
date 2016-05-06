@@ -498,7 +498,13 @@ inline UnitCpp::TestCase::~TestCase()
 //=============================================================================
 inline void UnitCpp::TestCase::run_harness()
 {
-  run();
+  try {
+    run();
+  } catch (std::exception& e) {
+
+  } catch (...) {
+
+  }
 }
 
 //=============================================================================
