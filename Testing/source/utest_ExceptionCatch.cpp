@@ -15,6 +15,10 @@ TEST(ExceptionCatch, std_exception)
       throw std::logic_error("Illogical!");
   });
   test.run_harness();
+  // Test the case failed
+  TEST_FALSE(test.passed());
+
+  // Test the printed output.
   std::stringstream ss;
   test.display_results(ss);
   std::string results(ss.str());
@@ -39,6 +43,9 @@ TEST(ExceptionCatch, custom_exception)
       throw CustomException();
   });
   test.run_harness();
+  // Test the case failed
+  TEST_FALSE(test.passed());
+  
   std::stringstream ss;
   test.display_results(ss);
   std::string results(ss.str());
