@@ -498,7 +498,25 @@ inline UnitCpp::TestCase::~TestCase()
 //=============================================================================
 inline void UnitCpp::TestCase::run_harness()
 {
-  run();
+  try {
+    run();
+  } catch (std::exception& e) {
+    // Newing memory after catching an exception, possibly dodgy.
+    std::string message =
+      std::string("Exception caught, what(): ") + std::string(e.what());
+    TestResult result = {false, message};
+    m_results.push_back(result);
+    m_passed = false;
+    m_fail_reason += message + "\n";
+  } catch (...) {
+    // Newing memory after catching an exception, possibly dodgy.
+    std::string message =
+      std::string("Unknown exception thrown.");
+    TestResult result = {false, message};
+    m_results.push_back(result);
+    m_passed = false;
+    m_fail_reason += message + "\n";
+  }
 }
 
 //=============================================================================
