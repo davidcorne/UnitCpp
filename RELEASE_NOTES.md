@@ -48,3 +48,9 @@ This is a note of what features have changed in each version. In each version te
 ## 2.1.0 ##
 
 - Moved development into a single file.
+
+## 2.1.1 ##
+
+- Add `TEST_STATIC_ASSERT` to test static assertions.
+- Catch and fail a test for throwing an exception, then continue with the test run.
+- Use `std::vector` rather than `std::list`.
