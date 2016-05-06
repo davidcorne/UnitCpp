@@ -640,7 +640,7 @@ inline void UnitCpp::TestCase::test_false(const U& not_ok, std::string message)
 inline void UnitCpp::TestCase::display_results(std::ostream& os)
 {
   os << "Test " << title() << "\n\n";
-  for (auto it = std::begin(m_results); it != std::end(m_results); ++it) {
+  for (auto it = begin(m_results); it != end(m_results); ++it) {
     TestResult result = *it;
     if (result.pass) {
       os << "Pass: ";
@@ -719,7 +719,7 @@ inline int UnitCpp::TestRegister::run_tests(std::string group_name)
 {
   int return_code = 0;
   std::vector<TestCase*> tests = m_test_table.at(group_name);
-  for (auto it = std::begin(tests); it != std::end(tests); ++it) {
+  for (auto it = begin(tests); it != end(tests); ++it) {
     TestCase* test = *it;
     test->run();
     test->display_results(m_os);
@@ -735,13 +735,13 @@ inline int UnitCpp::TestRegister::run_tests(std::string group_name)
 inline int UnitCpp::TestRegister::run_tests()
 {
   int return_code = 0;
-  for (auto it = std::begin(m_test_table); it != std::end(m_test_table); ++it) {
+  for (auto it = begin(m_test_table); it != end(m_test_table); ++it) {
     return_code += run_tests(it->first);
   }
   if (return_code) {
     // there were some failures.
     m_os << "Failures:\n\n";
-    for (auto it = std::begin(m_failures); it != std::end(m_failures); ++it) {
+    for (auto it = begin(m_failures); it != end(m_failures); ++it) {
       TestCase& test = **it;
       m_os
         << "Test "
@@ -770,7 +770,7 @@ inline int UnitCpp::TestRegister::run_tests_interactive(int argc, char** argv)
 //=============================================================================
 inline bool UnitCpp::TestRegister::group(std::string group_name)
 {
-  return m_test_table.find(group_name) != std::end(m_test_table);
+  return m_test_table.find(group_name) != end(m_test_table);
 }
 
 //=============================================================================
@@ -784,8 +784,8 @@ inline UnitCpp::TestMenu::TestMenu(
     std::make_shared<TestMenu::TestMenuAllTests>(test_register)
   );
   for (
-    auto group_it = std::begin(test_table);
-    group_it != std::end(test_table);
+    auto group_it = begin(test_table);
+    group_it != end(test_table);
     ++group_it
   ) {
     auto group_item = std::make_shared<TestMenu::TestMenuItemGroup>(
@@ -794,8 +794,8 @@ inline UnitCpp::TestMenu::TestMenu(
     );
     m_tests.push_back(group_item);
     for (
-      auto test_it = std::begin(group_it->second);
-      test_it != std::end(group_it->second);
+      auto test_it = begin(group_it->second);
+      test_it != end(group_it->second);
       ++test_it
     ) {
       auto test_item = std::make_shared<TestMenu::TestMenuItemCase>(*test_it);
@@ -868,7 +868,7 @@ inline void UnitCpp::TestMenu::draw_interactive_menu()
   // string 'fill' constructor.
   std::string banner(80, '=');
   int index = 0;
-  for (auto it = std::begin(m_tests); it != std::end(m_tests); ++it) {
+  for (auto it = begin(m_tests); it != end(m_tests); ++it) {
     auto test_item = *it;
     if (test_item->banner()) {
       os << "\n" << banner << "\n";
