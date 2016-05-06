@@ -247,6 +247,8 @@ public:
   
   virtual ~TestCase() = 0;
 
+  void run_harness();
+  
   void stop_printing();
   // Stops printing the results untill restarted.
   
@@ -494,6 +496,12 @@ inline UnitCpp::TestCase::~TestCase()
 }
 
 //=============================================================================
+inline void UnitCpp::TestCase::run_harness()
+{
+  run();
+}
+
+//=============================================================================
 template <typename U, typename V>
 void UnitCpp::TestCase::test_equal(const U& first, const V& second)
 {
@@ -721,7 +729,7 @@ inline int UnitCpp::TestRegister::run_tests(std::string group_name)
   std::vector<TestCase*> tests = m_test_table.at(group_name);
   for (auto it = begin(tests); it != end(tests); ++it) {
     TestCase* test = *it;
-    test->run();
+    test->run_harness();
     test->display_results(m_os);
     if (!test->passed()) {
       return_code = 1;
@@ -1008,7 +1016,7 @@ inline std::string UnitCpp::TestMenu::TestMenuItemCase::title() const
 //=============================================================================
 inline int UnitCpp::TestMenu::TestMenuItemCase::run()
 {
-  m_test_case->run();
+  m_test_case->run_harness();
   m_test_case->display_results(TestRegister::test_register().os());
   int ret_val = 1;
   if (m_test_case->passed()) {
