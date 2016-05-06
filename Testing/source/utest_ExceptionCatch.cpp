@@ -14,7 +14,7 @@ TEST(ExceptionCatch, std_exception)
       test_case.test_equal(1, 1, "ExceptionCatch:test:2");
       throw std::logic_error("Illogical!");
   });
-  test.run();
+  test.run_harness();
   std::stringstream ss;
   test.display_results(ss);
   std::string results(ss.str());
@@ -38,7 +38,7 @@ TEST(ExceptionCatch, custom_exception)
   UnitCpp::UnregisteredTestCase test([](TestCase& test_case) {
       throw CustomException();
   });
-  test.run();
+  test.run_harness();
   std::stringstream ss;
   test.display_results(ss);
   std::string results(ss.str());
