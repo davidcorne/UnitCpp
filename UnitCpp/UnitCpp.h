@@ -164,6 +164,11 @@ void test_##GROUP##_##NAME::run()
 #define TEST_FALSE(A, ...) \
   test_false((A), TEST_MESSAGE(#A " should be false. " #__VA_ARGS__))
 
+#define TEST_STATIC(A, ...) \
+  static_assert(A, "" #__VA_ARGS__);\
+  test_true(true, "" #__VA_ARGS__);
+
+
 #if UNITCPP_TEST_THROWS_AVAILABLE
 #define TEST_THROWS(FUNCTION, EXCEPTION, ...)   \
   test_throws<EXCEPTION>( \
