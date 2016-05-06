@@ -69,7 +69,6 @@
 // System includes
 #include <memory>
 #include <map>
-#include <list>
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -164,6 +163,11 @@ void test_##GROUP##_##NAME::run()
 #define TEST_FALSE(A, ...) \
   test_false((A), TEST_MESSAGE(#A " should be false. " #__VA_ARGS__))
 
+#define TEST_STATIC(A, ...) \
+  static_assert(A, "" #__VA_ARGS__);\
+  test_true(true, "" #__VA_ARGS__);
+
+
 #if UNITCPP_TEST_THROWS_AVAILABLE
 #define TEST_THROWS(FUNCTION, EXCEPTION, ...)   \
   test_throws<EXCEPTION>( \
@@ -228,8 +232,8 @@ private:
   friend class UnregisteredTestCase;
   friend class UnregisteredTestCase_unregistered;
   
-  std::map<std::string, std::list<TestCase*> >  m_test_table;
-  std::list<TestCase*> m_failures;
+  std::map<std::string, std::vector<TestCase*> >  m_test_table;
+  std::vector<TestCase*> m_failures;
   std::ostream& m_os;
 };
 
@@ -243,6 +247,8 @@ public:
   
   virtual ~TestCase() = 0;
 
+  void run_harness();
+  
   void stop_printing();
   // Stops printing the results untill restarted.
   
@@ -314,7 +320,7 @@ private:
   bool m_printing;
   
   std::string m_fail_reason;
-  std::list<TestResult> m_results;
+  std::vector<TestResult> m_results;
 };
 
 //=============================================================================
@@ -490,6 +496,30 @@ inline UnitCpp::TestCase::~TestCase()
 }
 
 //=============================================================================
+inline void UnitCpp::TestCase::run_harness()
+{
+  try {
+    run();
+  } catch (std::exception& e) {
+    // Newing memory after catching an exception, possibly dodgy.
+    std::string message =
+      std::string("Exception caught, what(): ") + std::string(e.what());
+    TestResult result = {false, message};
+    m_results.push_back(result);
+    m_passed = false;
+    m_fail_reason += message + "\n";
+  } catch (...) {
+    // Newing memory after catching an exception, possibly dodgy.
+    std::string message =
+      std::string("Unknown exception thrown.");
+    TestResult result = {false, message};
+    m_results.push_back(result);
+    m_passed = false;
+    m_fail_reason += message + "\n";
+  }
+}
+
+//=============================================================================
 template <typename U, typename V>
 void UnitCpp::TestCase::test_equal(const U& first, const V& second)
 {
@@ -636,7 +666,7 @@ inline void UnitCpp::TestCase::test_false(const U& not_ok, std::string message)
 inline void UnitCpp::TestCase::display_results(std::ostream& os)
 {
   os << "Test " << title() << "\n\n";
-  for (auto it = std::begin(m_results); it != std::end(m_results); ++it) {
+  for (auto it = begin(m_results); it != end(m_results); ++it) {
     TestResult result = *it;
     if (result.pass) {
       os << "Pass: ";
@@ -714,10 +744,10 @@ inline void UnitCpp::TestRegister::register_test(
 inline int UnitCpp::TestRegister::run_tests(std::string group_name)
 {
   int return_code = 0;
-  std::list<TestCase*> tests = m_test_table.at(group_name);
-  for (auto it = std::begin(tests); it != std::end(tests); ++it) {
+  std::vector<TestCase*> tests = m_test_table.at(group_name);
+  for (auto it = begin(tests); it != end(tests); ++it) {
     TestCase* test = *it;
-    test->run();
+    test->run_harness();
     test->display_results(m_os);
     if (!test->passed()) {
       return_code = 1;
@@ -731,13 +761,13 @@ inline int UnitCpp::TestRegister::run_tests(std::string group_name)
 inline int UnitCpp::TestRegister::run_tests()
 {
   int return_code = 0;
-  for (auto it = std::begin(m_test_table); it != std::end(m_test_table); ++it) {
+  for (auto it = begin(m_test_table); it != end(m_test_table); ++it) {
     return_code += run_tests(it->first);
   }
   if (return_code) {
     // there were some failures.
     m_os << "Failures:\n\n";
-    for (auto it = std::begin(m_failures); it != std::end(m_failures); ++it) {
+    for (auto it = begin(m_failures); it != end(m_failures); ++it) {
       TestCase& test = **it;
       m_os
         << "Test "
@@ -766,7 +796,7 @@ inline int UnitCpp::TestRegister::run_tests_interactive(int argc, char** argv)
 //=============================================================================
 inline bool UnitCpp::TestRegister::group(std::string group_name)
 {
-  return m_test_table.find(group_name) != std::end(m_test_table);
+  return m_test_table.find(group_name) != end(m_test_table);
 }
 
 //=============================================================================
@@ -774,14 +804,14 @@ inline UnitCpp::TestMenu::TestMenu(
   UnitCpp::TestRegister& test_register
 )
 {
-  std::map<std::string, std::list<TestCase*> >& test_table =
+  std::map<std::string, std::vector<TestCase*> >& test_table =
     test_register.m_test_table;
   m_tests.push_back(
     std::make_shared<TestMenu::TestMenuAllTests>(test_register)
   );
   for (
-    auto group_it = std::begin(test_table);
-    group_it != std::end(test_table);
+    auto group_it = begin(test_table);
+    group_it != end(test_table);
     ++group_it
   ) {
     auto group_item = std::make_shared<TestMenu::TestMenuItemGroup>(
@@ -790,8 +820,8 @@ inline UnitCpp::TestMenu::TestMenu(
     );
     m_tests.push_back(group_item);
     for (
-      auto test_it = std::begin(group_it->second);
-      test_it != std::end(group_it->second);
+      auto test_it = begin(group_it->second);
+      test_it != end(group_it->second);
       ++test_it
     ) {
       auto test_item = std::make_shared<TestMenu::TestMenuItemCase>(*test_it);
@@ -864,7 +894,7 @@ inline void UnitCpp::TestMenu::draw_interactive_menu()
   // string 'fill' constructor.
   std::string banner(80, '=');
   int index = 0;
-  for (auto it = std::begin(m_tests); it != std::end(m_tests); ++it) {
+  for (auto it = begin(m_tests); it != end(m_tests); ++it) {
     auto test_item = *it;
     if (test_item->banner()) {
       os << "\n" << banner << "\n";
@@ -1004,7 +1034,7 @@ inline std::string UnitCpp::TestMenu::TestMenuItemCase::title() const
 //=============================================================================
 inline int UnitCpp::TestMenu::TestMenuItemCase::run()
 {
-  m_test_case->run();
+  m_test_case->run_harness();
   m_test_case->display_results(TestRegister::test_register().os());
   int ret_val = 1;
   if (m_test_case->passed()) {
