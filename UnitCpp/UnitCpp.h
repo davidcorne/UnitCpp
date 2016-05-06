@@ -69,7 +69,6 @@
 // System includes
 #include <memory>
 #include <map>
-#include <list>
 #include <iostream>
 #include <vector>
 #include <sstream>
