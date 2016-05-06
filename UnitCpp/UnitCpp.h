@@ -233,8 +233,8 @@ private:
   friend class UnregisteredTestCase;
   friend class UnregisteredTestCase_unregistered;
   
-  std::map<std::string, std::list<TestCase*> >  m_test_table;
-  std::list<TestCase*> m_failures;
+  std::map<std::string, std::vector<TestCase*> >  m_test_table;
+  std::vector<TestCase*> m_failures;
   std::ostream& m_os;
 };
 
@@ -319,7 +319,7 @@ private:
   bool m_printing;
   
   std::string m_fail_reason;
-  std::list<TestResult> m_results;
+  std::vector<TestResult> m_results;
 };
 
 //=============================================================================
@@ -719,7 +719,7 @@ inline void UnitCpp::TestRegister::register_test(
 inline int UnitCpp::TestRegister::run_tests(std::string group_name)
 {
   int return_code = 0;
-  std::list<TestCase*> tests = m_test_table.at(group_name);
+  std::vector<TestCase*> tests = m_test_table.at(group_name);
   for (auto it = std::begin(tests); it != std::end(tests); ++it) {
     TestCase* test = *it;
     test->run();
@@ -779,7 +779,7 @@ inline UnitCpp::TestMenu::TestMenu(
   UnitCpp::TestRegister& test_register
 )
 {
-  std::map<std::string, std::list<TestCase*> >& test_table =
+  std::map<std::string, std::vector<TestCase*> >& test_table =
     test_register.m_test_table;
   m_tests.push_back(
     std::make_shared<TestMenu::TestMenuAllTests>(test_register)
