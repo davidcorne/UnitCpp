@@ -39,7 +39,7 @@ struct CustomException {};
 //=============================================================================
 TEST(ExceptionCatch, custom_exception)
 {
-  UnitCpp::UnregisteredTestCase test([](TestCase& test_case) {
+  UnitCpp::UnregisteredTestCase test([](TestCase&) {
       throw CustomException();
   });
   test.run_harness();
